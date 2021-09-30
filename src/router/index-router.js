@@ -58,7 +58,7 @@ router.post('/login', forwardAuthenticated, (req, res, next) => {
     })(req, res, next);
 })
 
-router.post('/registro', forwardAuthenticated, (req, res, next) => {
+router.post('/registro', forwardAuthenticated, async (req, res, next) => {
     let json = req.body;
     if (!json) return res.render('register', { Cadastro: "Erro" });
     if (!json.email) return res.render('register', { Cadastro: "Informe o email para realizar o cadastro" });
