@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path')
 const passport = require('passport');
+const Conta = require('../model/conta');
 const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth');
 const painelController = require('../controller/painelController');
 
