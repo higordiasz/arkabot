@@ -68,7 +68,7 @@ router.post('/registro', forwardAuthenticated, async (req, res, next) => {
     if (json.password != json.rpassword) return res.render('register', { Cadastro: "As senhas não são iguais" });
     let u = Object.create(Conta);
     u = await u.createAccount(json.email, json.password, json.avata != null ? json.avatar : "");
-    if (!u) return res.render('register', { Cadastro: "Email ja cadastrado" }); res.status(200).send({ status: 0, erro: "Esse email ja foi cadastrado", data: [] });
+    if (!u) return res.render('register', { Cadastro: "Email ja cadastrado" });
     return res.render('register', { Cadastro: "Cadastro realizado com sucesso" });
 })
 
