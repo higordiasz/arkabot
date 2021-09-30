@@ -59,8 +59,16 @@ router.post('/login', forwardAuthenticated, (req, res, next) => {
 })
 
 router.post('/registro', forwardAuthenticated, (req, res, next) => {
-    console.log(req.body)
-    res.render('register', { Cadastro: "" })
+    let json = req.body;
+    if (!json) return res.render('register', { Cadastro: "Erro" });
+    if (!json.email) return res.render('register', { Cadastro: "Informe o email para realizar o cadastro" });
+    if (!json.password) return res.render('register', { Cadastro: "Informe a senha para realizar o registro" });
+    if (!json.rpassword) return res.render('register', { Cadastro: "Repita a senha para realizar o registro" });
+    if (json.password != json.rpassword) return res.render('register', { Cadastro: "As senhas não são iguais" });
+    let u = Object.create(Conta);
+    u = await u.createAccount(json.email, json.password, json.avata != null ? json.avatar : "");
+    if (!u) return res.render('register', { Cadastro: "Email ja cadastrado" }); res.status(200).send({ status: 0, erro: "Esse email ja foi cadastrado", data: [] });
+    return res.render('register', { Cadastro: "Cadastro realizado com sucesso" });
 })
 
 module.exports = router;
