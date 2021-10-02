@@ -10,7 +10,6 @@ router.get('/comprar-instagram', ensureAuthenticated, async (req, res, next) => 
     if (!query) return res.redirect('painel');
     if (!query.valor) return res.redirect('painel');
     if (!query.dias) return res.redirect('painel');
-    console.log(query)
     let preference = {
         items: [
             {
