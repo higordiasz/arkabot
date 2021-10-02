@@ -49,6 +49,12 @@ router.all('/globais', ensureAuthenticated, painelController.loadGlobais)
 
 router.all('/adquirir', ensureAuthenticated, painelController.loadAdquirir)
 
+router.all('/suporte01', ensureAuthenticated, (req, res, next) => res.render('suporte01', {message: ""}))
+
+router.all('/suporte02', ensureAuthenticated, (req, res, next) => res.render('', {message: ""}))
+
+router.all('/email', ensureAuthenticated, (req, res, next) => res.render('', {message: ""}))
+
 //POST
 
 router.post('/login', forwardAuthenticated, (req, res, next) => {

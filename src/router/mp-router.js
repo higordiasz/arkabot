@@ -10,16 +10,17 @@ router.get('/comprar-instagram', ensureAuthenticated, async (req, res, next) => 
     if (!query) return res.redirect('painel');
     if (!query.valor) return res.redirect('painel');
     if (!query.dias) return res.redirect('painel');
+    console.log(query)
     let preference = {
         items: [
             {
                 title: "Licença Arka",
                 currency_id: "BRL",
-                picture_url: "https://i.imgur.com/HPaRdLP.png",
+                picture_url: "https://i.imgur.com/HPaRdLP.jpg",
                 description: `Compra de ${query.dias} dias de licença Arka Bot`,
                 category_id: "services",
                 quantity: 1,
-                unit_price: query.valor
+                unit_price: parseFloat(query.valor)
             }
         ],
         payment_methods: {
@@ -85,8 +86,8 @@ router.all('/ret-insta', ensureAuthenticated, async (req, res, next) => {
             "valor": payment.response.transaction_amount,
             "tipo": 1
         };
-        let res = await apiController.addLicenceSite(json);
-        if (res) {
+        let res2 = await apiController.addLicenceSite(json);
+        if (res2) {
             return res.render('checkoutapr', { user: req.user });
         } else {
             return res.render('checkouterr', { user: req.user, erro: "Não foi possiel adicionar sua licença, entre em contato com o suporte." });
@@ -98,3 +99,5 @@ router.all('/ret-insta', ensureAuthenticated, async (req, res, next) => {
         } catch { }
     }
 })
+
+module.exports = router;

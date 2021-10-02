@@ -41,6 +41,13 @@ app.use(function (req, res, next) {
     next();
 });
 
+//Mercado Pago
+const mercadopago = require('mercadopago');
+
+mercadopago.configure({
+    access_token: 'APP_USR-892335237051732-052613-9ef6bf964d8583d583021bbe0467d055-416710926'
+});
+
 /* Ativar o HTTPS
 app.use((req, res, next) => { //Cria um middleware onde todas as requests passam por ele
     if ((req.headers["x-forwarded-proto"] || "").endsWith("http")) //Checa se o protocolo informado nos headers é HTTP 
@@ -56,6 +63,11 @@ app.use('/api', apiRouter);
 const indexRouter = require('./router/index-router');
 app.use('/', indexRouter);
 
+const mpRouter = require('./router/mp-router');
+app.use('/checkout', mpRouter);
 
+app.use((req, res, next) => {
+    return res.render('notvalidlink', { user: [], erro: "Pagina não encontrada" });
+})
 
 module.exports = app;
