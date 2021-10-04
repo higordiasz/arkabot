@@ -44,7 +44,7 @@ exports.findByToken = async function (token) {
 }
 
 exports.loginAccount = async function (email, password) {
-    let e = email.ReplaceAll(".", "-").ReplaceAll(" ", "").toLowerCase();
+    let e = email.ReplaceAll(" ", "").toLowerCase();
     let senha = md5(password)
     let token = md5('arkatokengenerate' + e);
     let User = await Conta.findOne({ token: token });
@@ -58,7 +58,7 @@ exports.loginAccount = async function (email, password) {
 }
 
 exports.createAccount = async function (email, password, avatar = "nada") {
-    let e = email.ReplaceAll(".", "-").ReplaceAll(" ", "").toLowerCase();
+    let e = email.ReplaceAll(" ", "").toLowerCase();
     if (await Conta.findOne({ email: e }) != null) return null;
     let token = md5('arkatokengenerate' + e);
     let senha = md5(password);
