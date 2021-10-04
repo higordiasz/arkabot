@@ -22,21 +22,21 @@ router.get('/login', forwardAuthenticated, (req, res, next) => {
     var e = req.sessionStore.sessions[Object.keys(req.sessionStore.sessions)];
     if (e != null) {
         if (e.indexOf("Missing credentials") > -1) {
-            res.render('login', { message: "Preencha todos os campos" })
+            res.render('logcreate', { message: "Preencha todos os campos", tipo: 1 })
         } else {
             if (e.indexOf("Usuario ou senha errado") > -1) {
-                res.render('login', { message: "Usuario ou senha errado" })
+                res.render('logcreate', { message: "Usuario ou senha errado", tipo: 1 })
             } else {
-                res.render('login', { message: "" })
+                res.render('logcreate', { message: "", tipo: 1 })
             }
         }
     } else {
-        res.render('login', { message: "" })
+        res.render('logcreate', { message: "", tipo: 1 })
     }
 })
 
 router.get('/registro', forwardAuthenticated, (req, res, next) => {
-    res.render('register', { Cadastro: "" })
+    res.render('logcreate', { message: "", tipo: 2 })
 })
 
 router.get('/logout', (req, res, next) => {
@@ -73,14 +73,14 @@ router.post('/login', forwardAuthenticated, (req, res, next) => {
 
 router.post('/registro', forwardAuthenticated, async (req, res, next) => {
     let json = req.body;
-    if (!json) return res.render('register', { Cadastro: "Erro" });
-    if (!json.email) return res.render('register', { Cadastro: "Informe o email para realizar o cadastro" });
-    if (!json.password) return res.render('register', { Cadastro: "Informe a senha para realizar o registro" });
-    if (!json.rpassword) return res.render('register', { Cadastro: "Repita a senha para realizar o registro" });
-    if (json.password != json.rpassword) return res.render('register', { Cadastro: "As senhas não são iguais" });
+    if (!json) return res.render('logcreate', { message: "Erro", tipo: 2 });
+    if (!json.email) return res.render('logcreate', { message: "Informe o email para realizar o cadastro", tipo: 2 });
+    if (!json.password) return res.render('logcreate', { message: "Informe a senha para realizar o registro", tipo: 2 });
+    if (!json.rpassword) return res.render('logcreate', { message: "Repita a senha para realizar o registro", tipo: 2 });
+    if (json.password != json.rpassword) return res.render('logcreate', { message: "As senhas não são iguais", tipo: 2 });
     let u = await contaController.createAccount(json.email, json.password, json.avatar != null ? json.avatar : "nenhum");
-    if (!u) return res.render('register', { Cadastro: "Email ja cadastrado" });
-    return res.render('register', { Cadastro: "Cadastro realizado com sucesso" });
+    if (!u) return res.render('logcreate', { message: "Email ja cadastrado", tipo: 2 });
+    return res.render('logcreate', { message: "Cadastro realizado com sucesso", tipo: 2 });
 })
 
 module.exports = router;
