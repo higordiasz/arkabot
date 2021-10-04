@@ -21,11 +21,11 @@ router.post('/create', Controller.createAccount);
 
 
 //Administração
-
+/*
 router.post('/users', Controller.getAllUsers);
 
 router.post('/delete', Controller.deleteAllUsers);
-
+*/
 // -------------------- POST ---------------------------
 
 //Usuarios

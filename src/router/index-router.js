@@ -2,7 +2,13 @@ const express = require('express');
 const router = express.Router();
 const path = require('path')
 const passport = require('passport');
-const Conta = require('../model/conta');
+const contaController = require('../model/Conta/Controller');
+const globalController = require('../model/Global/Controller');
+const grupoController = require('../model/Grupo/Controller');
+const instagramController = require('../model/Instagram/Controller');
+const licenseController = require('../model/LicenseInsta/Controller');
+const paymentController = require('../model/Payment/Controller');
+const vendaController = require('../model/Venda/Controller');
 const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth');
 const painelController = require('../controller/painelController');
 
@@ -72,8 +78,7 @@ router.post('/registro', forwardAuthenticated, async (req, res, next) => {
     if (!json.password) return res.render('register', { Cadastro: "Informe a senha para realizar o registro" });
     if (!json.rpassword) return res.render('register', { Cadastro: "Repita a senha para realizar o registro" });
     if (json.password != json.rpassword) return res.render('register', { Cadastro: "As senhas não são iguais" });
-    let u = Object.create(Conta);
-    u = await u.createAccount(json.email, json.password, json.avata != null ? json.avatar : "");
+    let u = await contaController.createAccount(json.email, json.password, json.avatar != null ? json.avatar : "nenhum");
     if (!u) return res.render('register', { Cadastro: "Email ja cadastrado" });
     return res.render('register', { Cadastro: "Cadastro realizado com sucesso" });
 })

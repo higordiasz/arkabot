@@ -1,4 +1,4 @@
-const db = require('quick.db');
+/*const db = require('quick.db');
 const moment = require('moment');
 
 String.prototype.ReplaceAll = function (stringToFind, stringToReplace) {
@@ -79,4 +79,4 @@ var Licenca = new Object({
     }
 })
 
-module.exports = Licenca;
+module.exports = Licenca;*/

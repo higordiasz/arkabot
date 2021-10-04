@@ -1,10 +1,22 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 var path = require('path');
 const flash = require('express-flash');
 const session = require('express-session');
 require('dotenv').config();
 const app = express();
+//Carregando models
+
+const Conta = require(`./model/Conta/Model`);
+const Global = require(`./model/Global/Model`);
+const Grupo = require(`./model/Grupo/Model`);
+const Instagram = require(`./model/Instagram/Model`);
+const LicenseInsta = require(`./model/LicenseInsta/Model`);
+const Payment = require(`./model/Payment/Model`);
+const Venda = require(`./model/Venda/Model`);
+
+//Carregando Passport
 const passport = require('passport');
 require('./config/passport')(passport);
 app.set('trust proxy', true)
@@ -39,6 +51,35 @@ app.use(function (req, res, next) {
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     next();
+});
+
+// Database
+mongoose.connect(process.env.DATABASE_CONNECTION_STRING, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+});
+
+const db = mongoose.connection;
+
+db.on('connected', () => {
+    console.log('Mongoose default connection is open');
+});
+
+db.on('error', err => {
+    console.log(`Mongoose default connection has occured \n${err}`);
+});
+
+db.on('disconnected', () => {
+    console.log('Mongoose default connection is disconnected');
+});
+
+process.on('SIGINT', () => {
+    db.close(() => {
+        console.log(
+            'Mongoose default connection is disconnected due to application termination'
+        );
+        process.exit(0);
+    });
 });
 
 //Mercado Pago

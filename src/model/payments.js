@@ -1,4 +1,4 @@
-const db = require('quick.db');
+/*//const db = require('quick.db');
 const moment = require('moment');
 
 String.prototype.ReplaceAll = function (stringToFind, stringToReplace) {
@@ -18,7 +18,7 @@ const Payment = new Object({
                 "status":payment.response.status,
                 "transaction_amount":payment.response.transaction_amount,
                 "order_id":payment.response.order.id,
-                "pymentID": paymentID,
+                "paymentID": paymentID,
                 "token":userToken
             }
             db.set(`arka.payments.${paymentID}`, paymentJson);
@@ -34,4 +34,4 @@ const Payment = new Object({
     }
 })
 
-module.exports = Payment;
+module.exports = Payment;*/

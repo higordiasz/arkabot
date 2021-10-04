@@ -1,5 +1,11 @@
 const LocalStrategy = require('passport-local').Strategy;
-const db = require('quick.db');
+const contaController = require('../model/Conta/Controller');
+const globalController = require('../model/Global/Controller');
+const grupoController = require('../model/Grupo/Controller');
+const instagramController = require('../model/Instagram/Controller');
+const licenseController = require('../model/LicenseInsta/Controller');
+const paymentController = require('../model/Payment/Controller');
+const vendaController = require('../model/Venda/Controller');
 const md5 = require('md5');
 
 String.prototype.ReplaceAll = function (stringToFind, stringToReplace) {
@@ -14,14 +20,12 @@ String.prototype.ReplaceAll = function (stringToFind, stringToReplace) {
 
 module.exports = function (passport) {
     passport.use(
-        new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
-            let e = email.ReplaceAll(".", "-").ReplaceAll(" ", "").toLowerCase();
-            let token = md5('arkatokengenerate' + e + password);
-            let conta = db.get(`arka.usuarios.${token}`)
-            if (conta != null) {
+        new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
+            let user = await contaController.findByEmail(email);
+            if (user != null) {
                 let md5Passwrod = md5(password);
-                if (md5Passwrod == conta.password) {
-                    return done(null, conta);
+                if (md5Passwrod == user.password) {
+                    return done(null, user);
                 } else {
                     return done(null, false, { message: 'Email ou senha errado' });
                 }
@@ -30,16 +34,14 @@ module.exports = function (passport) {
             }
         })
     );
-
     passport.serializeUser(function (user, done) {
         done(null, user.token);
     });
-
-    passport.deserializeUser(function (id, done) {
-        if (db.get(`arka.usuarios.${id}`) != null) {
-            done(null, db.get(`arka.usuarios.${id}`))
+    passport.deserializeUser(async function (id, done) {
+        if (await contaController.findByToken(id) != null) {
+            return done(null, await contaController.findByToken(id))
         } else {
-            done(null, null)
+            return done(null, null)
         }
     });
 };

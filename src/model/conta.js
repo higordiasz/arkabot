@@ -1,4 +1,4 @@
-const db = require('quick.db');
+/*const db = require('quick.db');
 const md5 = require('md5');
 const { normalizeUnits } = require('moment');
 
@@ -503,4 +503,4 @@ var Conta = new Object({
     }
 });
 
-module.exports = Conta;
+module.exports = Conta;*/
