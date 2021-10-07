@@ -37,7 +37,7 @@ exports.loginBot = async function (req, res, next) {
 exports.checkToken = async function (req, res, next) {
     let json = req.body;
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] })
-    let user = await contaController.findByToken();
+    let user = await contaController.findByToken(json.token);
     if (!user) return res.status(200).send({ statgus: 0, erro: "Informe o token de acesso ao sistema", data: [] })
     if (!await licenseController.validateLicenceInstagram(conta.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     return res.status(200).send({ status: 1, erro: "", data: [] });
