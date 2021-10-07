@@ -112,6 +112,43 @@ exports.getGlobalByName = async function (token, name) {
     if (token.isNullOrEmpty()) return null;
     if (name.isNullOrEmpty()) return null;
     let nome = name.ReplaceAll(" ", "").ReplaceAll("@", "").ReplaceAll(":", "").ReplaceAll(";", "").toLowerCase();
+    if (nome == "conservador" || nome == "agressivo") {
+        if (nome == "conservador") {
+            let g = {
+                "nome":"conservador",
+                "delay1":60,
+                "delay2":120,
+                "quantidade":100,
+                "tcontas":60,
+                "meta":300,
+                "tmeta":420,
+                "tblock":720,
+                "cgrupo":0,
+                "anonimo":true,
+                "trocar":false,
+                "perfil":true,
+                "barra":false
+            };
+            return g;
+        } else {
+            let g = {
+                "nome":"agressivo",
+                "delay1":25,
+                "delay2":38,
+                "quantidade":300,
+                "tcontas":30,
+                "meta":900,
+                "tmeta":200,
+                "tblock":420,
+                "cgrupo":1,
+                "anonimo":true,
+                "trocar":true,
+                "perfil":false,
+                "barra":true
+            };
+            return g;
+        }
+    }
     let g = await Global.findOne({ token: token, nome: nome });
     if (!g) return null;
     let ret = g.toJSON();
