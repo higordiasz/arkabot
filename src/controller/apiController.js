@@ -67,8 +67,8 @@ exports.createConta = async function (req, res, next) {
     if (!conta) return res.status(200).send({ status: 0, erro: "Token invalido", data: [] });
     if (!json.username) return res.status(200).send({ status: 0, erro: "Informe o username da conta", data: [] });
     if (!json.password) return res.status(200).send({ status: 0, erro: "Informe a senha da conta", data: [] });
-    let listMobile = ["lg-optimus-g", "nexus7gen2", "nexus7gen1", "htc10", "galaxy6", "galaxy-s5-gold", "lg-optimus-f6", "nexus-5x", "nexus5", "galaxy-s7-edge",
-        "galaxy-s4", "nexus-6p", "galaxy-tab-s84", "galaxy-tab3", "note3", "nexus4-chroma", "sony-z3-compact", "xperia-z5", "honor-8lite", "xiaomi-mi-4w", "xiaomi-hm-1sw", "htc-one-plus"];
+    let listMobile = ["lg-optimus-g", "nexus7gen2", "nexus7gen1", "galaxy6", "galaxy-s5-gold", "lg-optimus-f6", "nexus-5x", "nexus5", "galaxy-s7-edge",
+        "galaxy-s4", "nexus-6p", "galaxy-tab-s84", "note3", "nexus4-chroma", "sony-z3-compact", "xperia-z5", "honor-8lite", "xiaomi-mi-4w", "xiaomi-hm-1sw", "htc-one-plus"];
     let insta = {
         "username": json.username,
         "password": json.password,
