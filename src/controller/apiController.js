@@ -68,7 +68,7 @@ exports.createConta = async function (req, res, next) {
     if (!json.username) return res.status(200).send({ status: 0, erro: "Informe o username da conta", data: [] });
     if (!json.password) return res.status(200).send({ status: 0, erro: "Informe a senha da conta", data: [] });
     let listMobile = ["lg-optimus-g", "nexus7gen2", "nexus7gen1", "galaxy6", "galaxy-s5-gold", "lg-optimus-f6", "nexus-5x", "nexus5", "galaxy-s7-edge",
-        "galaxy-s4", "nexus-6p", "galaxy-tab-s84", "note3", "nexus4-chroma", "sony-z3-compact", "xperia-z5", "honor-8lite", "xiaomi-mi-4w", "xiaomi-hm-1sw", "htc-one-plus"];
+        "galaxy-s4", "nexus-6p", "note3", "nexus4-chroma", "xiaomi-mi-4w"];
     let insta = {
         "username": json.username,
         "password": json.password,
@@ -155,7 +155,8 @@ exports.removeChallenge = async function (req, res, next) {
     if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "", data: [] });
-    await instagramController.removerChallenge(conta.token, json.username);
+    var re = await instagramController.removerChallenge(conta.token, json.username);
+    console.log(re);
     return res.status(200).send({ status: 1, erro: "", data: [] });
 }
 
