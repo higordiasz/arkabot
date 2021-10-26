@@ -28,6 +28,8 @@ router.post('/delete', Controller.deleteAllUsers);
 */
 // -------------------- POST ---------------------------
 
+router.post('/useragent', Controller.getUserAgentFromSeed);
+
 //Usuarios
 
 router.post('/login', Controller.loginBot);

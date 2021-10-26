@@ -7,6 +7,7 @@ const licenseController = require('../model/LicenseInsta/Controller');
 const paymentController = require('../model/Payment/Controller');
 const vendaController = require('../model/Venda/Controller');
 const moment = require('moment');
+const useragentFromSeed = require('useragent-from-seed');
 
 //Controles Administrador
 /*
@@ -492,4 +493,11 @@ exports.validateLicence = async function (req, res, next) {
     if (!json.token) return res.status(200).send({ status: 0, erro: "", data: [] });
     if (await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 1, erro: "", data: [] });
     return res.status(200).send({ status: 0, erro: "", data: [] });
+}
+
+exports.getUserAgentFromSeed = async function (req, res, next) {
+    let json = req.body;
+    if(!json) return res.status(200).send({status: 0, erro: ""});
+    if(!json.username) return res.status(200).send({status: 0, erro: ""});
+    return res.status(200).send({status: 1, erro: useragentFromSeed(json.username)});
 }
