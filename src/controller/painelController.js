@@ -55,5 +55,5 @@ exports.loadGlobais = async function (req, res, next) {
 }
 
 exports.loadAdquirir = async function (req, res, next) {
-    return res.render ('adquirir', {message: ""});
+    return res.render ('adquirirtemp', {message: ""});
 }

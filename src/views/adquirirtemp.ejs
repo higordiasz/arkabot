@@ -64,19 +64,19 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="../globais">
+          <a class="nav-link  " href="../globais">
             <div
               class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ico-branco fa fa-globe-americas opacity-10" aria-hidden="true"></i>
+              <i class="ico-roxo fa fa-globe-americas opacity-10" aria-hidden="true"></i>
             </div>
             <span class="nav-link-text ms-1">Globais</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../adquirir">
+          <a class="nav-link  active" href="../adquirir">
             <div
               class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ico-roxo fa fa-credit-card opacity-10" aria-hidden="true"></i>
+              <i class="ico-branco fa fa-credit-card opacity-10" aria-hidden="true"></i>
             </div>
             <span class="nav-link-text ms-1">Adquirir</span>
           </a>
@@ -107,10 +107,11 @@
   </aside>
   <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
     <!-- Navbar -->
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+      navbar-scroll="true">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
-          <h6 class="font-weight-bolder mb-0">Globais</h6>
+          <h6 class="font-weight-bolder mb-0">Adquirir</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -138,91 +139,43 @@
     <!-- End Navbar -->
     <div class="container-fluid py-4">
       <div class="row">
-        <div class="col-12">
-          <div class="card mb-4">
-            <div class="card-header pb-0">
-              <h6>Globais Cadastrados</h6>
-            </div>
-            <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nome</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Qtd</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Meta</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Delay</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% if (Globais != null) { %>
-                      <% if (Globais.length > 0) { %>
-                        <% for(let i = 0; i < Globais.length; i++) { %>
-                          <tr>
-                            <td>
-                              <div class="d-flex px-2 py-1">
-                                <div class="d-flex flex-column justify-content-center">
-                                  <h6 class="mb-0 text-sm">
-                                    <%- Globais[i].nome %>
-                                  </h6>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex px-2 py-1">
-                                <div class="d-flex flex-column justify-content-center">
-                                  <h6 class="mb-0 text-sm">
-                                    <%- Globais[i].quantidade %>
-                                  </h6>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex px-2 py-1">
-                                <div class="d-flex flex-column justify-content-center">
-                                  <h6 class="mb-0 text-sm">
-                                    <%- Globais[i].meta %>
-                                  </h6>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex px-2 py-1">
-                                <div class="d-flex flex-column justify-content-center">
-                                  <h6 class="mb-0 text-sm">
-                                    <%- Globais[i].delay1 %> - <%- Globais[i].delay2 %>
-                                  </h6>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        <% } %>
-                      <% } %>
-                    <% } %>
-                  </tbody>
-                </table>
+        <div class="col-md-4">
+          <div class="card">
+            <a href="/">
+              <div class="card-header mx-4 p-3 text-center">
+                <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
+                  <i class="fa fa-instagram opacity-10" aria-hidden="true"></i>
+                </div>
               </div>
+              <div class="card-body pt-0 p-3 text-center">
+                <h6 class="text-center mb-0">Bot Instagram</h6>
+                <span class="text-xs">Não se preocupe em adquirir, no momento nosso sistema é gratuito!</span>
+                <hr class="horizontal dark my-3">
+                <h5 class="mb-0"><s>R$0,00</s> R$0,00 <span class="text-success text-sm font-weight-bolder">- 100%</span></h5>
+              </div>
+            </a>
+        </div>
+      </div>
+      </div>
+    </div>
+    <footer class="footer pt-3  ">
+      <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6 mb-lg-0 mb-4">
+            <div class="copyright text-center text-sm text-muted text-lg-start">
+              ©
+              <script>
+                document.write(new Date().getFullYear())
+              </script>,
+              Arka Group.
             </div>
           </div>
         </div>
       </div>
-      <footer class="footer pt-3  ">
-        <div class="container-fluid">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 mb-lg-0 mb-4">
-              <div class="copyright text-center text-sm text-muted text-lg-start">
-                © <script>
-                  document.write(new Date().getFullYear())
-                </script>,
-                Arka Group.
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+    </footer>
     </div>
   </main>
-  
+
   <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
@@ -245,7 +198,7 @@
           backgroundColor: "#fff",
           data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
           maxBarThickness: 6
-        }, ],
+        },],
       },
       options: {
         responsive: true,
@@ -316,30 +269,30 @@
       data: {
         labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [{
-            label: "Mobile apps",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#cb0c9f",
-            borderWidth: 3,
-            backgroundColor: gradientStroke1,
-            fill: true,
-            data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-            maxBarThickness: 6
+          label: "Mobile apps",
+          tension: 0.4,
+          borderWidth: 0,
+          pointRadius: 0,
+          borderColor: "#cb0c9f",
+          borderWidth: 3,
+          backgroundColor: gradientStroke1,
+          fill: true,
+          data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+          maxBarThickness: 6
 
-          },
-          {
-            label: "Websites",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#3A416F",
-            borderWidth: 3,
-            backgroundColor: gradientStroke2,
-            fill: true,
-            data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-            maxBarThickness: 6
-          },
+        },
+        {
+          label: "Websites",
+          tension: 0.4,
+          borderWidth: 0,
+          pointRadius: 0,
+          borderColor: "#3A416F",
+          borderWidth: 3,
+          backgroundColor: gradientStroke2,
+          fill: true,
+          data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+          maxBarThickness: 6
+        },
         ],
       },
       options: {

@@ -20,6 +20,10 @@ router.all('/', (req, res, next) => {
     res.render('cronometro', {seconds: seconds});
 })
 
+router.all ('/index', (req, res, next) => {
+    res.render('index', {})
+})
+
 //GET
 
 router.get('/login', forwardAuthenticated, (req, res, next) => {
@@ -61,7 +65,7 @@ router.all('/adquirir', ensureAuthenticated, painelController.loadAdquirir)
 
 router.all('/suporte01', ensureAuthenticated, (req, res, next) => res.render('suporte01', {message: ""}))
 
-router.all('/suporte02', ensureAuthenticated, (req, res, next) => res.render('', {message: ""}))
+router.all('/suporte02', ensureAuthenticated, (req, res, next) => res.render('suporte02', {message: ""}))
 
 router.all('/email', ensureAuthenticated, (req, res, next) => res.render('', {message: ""}))
 

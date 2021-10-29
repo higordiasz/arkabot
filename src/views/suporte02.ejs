@@ -64,10 +64,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="../globais">
+          <a class="nav-link  " href="../globais">
             <div
               class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ico-branco fa fa-globe-americas opacity-10" aria-hidden="true"></i>
+              <i class="ico-roxo fa fa-globe-americas opacity-10" aria-hidden="true"></i>
             </div>
             <span class="nav-link-text ms-1">Globais</span>
           </a>
@@ -85,7 +85,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Contato</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="../suporte01">
+          <a class="nav-link " href="../suporte01">
             <div
               class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ico-roxo fa fa-ticket-alt opacity-10" aria-hidden="true"></i>
@@ -94,10 +94,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="../suporte02">
+          <a class="nav-link active" href="../suporte02">
             <div
               class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ico-roxo fa fa-link opacity-10" aria-hidden="true"></i>
+              <i class="ico-branco fa fa-link opacity-10" aria-hidden="true"></i>
             </div>
             <span class="nav-link-text ms-1">Links</span>
           </a>
@@ -110,7 +110,7 @@
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
-          <h6 class="font-weight-bolder mb-0">Globais</h6>
+          <h6 class="font-weight-bolder mb-0">Links</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -137,72 +137,37 @@
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-12">
-          <div class="card mb-4">
-            <div class="card-header pb-0">
-              <h6>Globais Cadastrados</h6>
-            </div>
-            <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nome</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Qtd</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Meta</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Delay</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% if (Globais != null) { %>
-                      <% if (Globais.length > 0) { %>
-                        <% for(let i = 0; i < Globais.length; i++) { %>
-                          <tr>
-                            <td>
-                              <div class="d-flex px-2 py-1">
-                                <div class="d-flex flex-column justify-content-center">
-                                  <h6 class="mb-0 text-sm">
-                                    <%- Globais[i].nome %>
-                                  </h6>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex px-2 py-1">
-                                <div class="d-flex flex-column justify-content-center">
-                                  <h6 class="mb-0 text-sm">
-                                    <%- Globais[i].quantidade %>
-                                  </h6>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex px-2 py-1">
-                                <div class="d-flex flex-column justify-content-center">
-                                  <h6 class="mb-0 text-sm">
-                                    <%- Globais[i].meta %>
-                                  </h6>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex px-2 py-1">
-                                <div class="d-flex flex-column justify-content-center">
-                                  <h6 class="mb-0 text-sm">
-                                    <%- Globais[i].delay1 %> - <%- Globais[i].delay2 %>
-                                  </h6>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        <% } %>
-                      <% } %>
-                    <% } %>
-                  </tbody>
-                </table>
+      <div class="row my-4">
+        <div class="col-md-6">
+          <div class="card">
+            <a href="https://www.instagram.com/arka_bot/"> 
+            <div class="card-header mx-4 p-3 text-center">
+              <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
+                <i class="fa fa-instagram opacity-10" aria-hidden="true"></i>
               </div>
             </div>
+            <div class="card-body pt-0 p-3 text-center">
+              <h6 class="text-center mb-0">Instagram</h6>
+              <span class="text-xs">Siga nossa pagina no instagram para ficar por dentro das novidades.</span>
+              <hr class="horizontal dark my-3">
+            </div>
+          </a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <a href="https://t.me/botarka"> 
+            <div class="card-header mx-4 p-3 text-center">
+              <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
+                <i class="fa fa-telegram opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div class="card-body pt-0 p-3 text-center">
+              <h6 class="text-center mb-0">Telegram</h6>
+              <span class="text-xs">Entre em nosso canal e fique sabendo de todas novidades.</span>
+              <hr class="horizontal dark my-3">
+            </div>
+          </a>
           </div>
         </div>
       </div>
