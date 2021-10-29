@@ -11,7 +11,7 @@ const paymentController = require('../model/Payment/Controller');
 const vendaController = require('../model/Venda/Controller');
 const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth');
 const painelController = require('../controller/painelController');
-
+/*
 router.all('/', (req, res, next) => {
     var date1 = new Date();
     var date2 = new Date("10/29/2021 23:00:00");
@@ -19,8 +19,8 @@ router.all('/', (req, res, next) => {
     var seconds = Math.ceil(diffTime / 1000 );
     res.render('cronometro', {seconds: seconds});
 })
-
-router.all ('/index', (req, res, next) => {
+*/
+router.all ('/', (req, res, next) => {
     res.render('index', {})
 })
 
