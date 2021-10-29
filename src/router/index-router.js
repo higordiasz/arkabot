@@ -67,7 +67,9 @@ router.all('/suporte01', ensureAuthenticated, (req, res, next) => res.render('su
 
 router.all('/suporte02', ensureAuthenticated, (req, res, next) => res.render('suporte02', {message: ""}))
 
-router.all('/email', ensureAuthenticated, (req, res, next) => res.render('', {message: ""}))
+router.all('/email', ensureAuthenticated, (req, res, next) => res.render('suporte01', {message: ""}))
+
+router.all('/download', ensureAuthenticated, (req, res, next) => res.render('download', {message: ""}))
 
 //POST
 
