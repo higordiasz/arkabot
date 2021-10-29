@@ -14,7 +14,7 @@ const painelController = require('../controller/painelController');
 
 router.all('/', (req, res, next) => {
     var date1 = new Date();
-    var date2 = new Date("10/29/2021 20:00:00");
+    var date2 = new Date("10/29/2021 23:00:00");
     const diffTime = Math.abs(date2 - date1);
     var seconds = Math.ceil(diffTime / 1000 );
     res.render('cronometro', {seconds: seconds});
