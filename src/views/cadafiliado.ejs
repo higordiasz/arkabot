@@ -11,7 +11,6 @@
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 <body>
-    <% if (tipo == 2) { %>
     <div class="container">
         <div class="content first-content">
             <div class="first-column">
@@ -24,7 +23,7 @@
                 <div class="social-media">
                     <p class="description"><%- message %></p>
                 </div>
-                <form class="form" method="POST" action="../registro">
+                <form class="form" method="POST" action="../afiliado/registro">
                     <label class="label-input" for="">
                         <i class="far fa-envelope icon-modify"></i>
                         <input type="email" placeholder="Email" name="email">
@@ -39,6 +38,12 @@
                         <i class="fas fa-lock icon-modify"></i>
                         <input type="password" placeholder="Repitir Senha" name="rpassword">
                     </label>
+
+                    <label class="label-input" for="">
+                        <i class="fas fa-code icon-modify"></i>
+                        <input type="text" placeholder="Codigo" name="code" value="<%- code %>" readonly="true">
+                    </label>
+
                     <button class="btn btn-second">Casdastrar</button>        
                 </form>
             </div><!-- second column -->
@@ -68,65 +73,6 @@
             </div><!-- second column -->
         </div>
     </div>
-    <%} else {%>
-        <div class="container">
-            <div class="content first-content">
-                <div class="first-column">
-                    <h2 class="title title-primary">Arka</h2>
-                <p class="description description-primary">Venha redesenhar o futuro</p>
-                    <button id="signin" class="btn btn-primary">Cadastrar</button>
-                </div>
-                <div class="second-column">
-                    <h2 class="title title-second">Entrar</h2>
-                    <div class="social-media">
-                    </div>
-                    <form class="form" method="POST" action="../login">
-                        <label class="label-input" for="">
-                            <i class="far fa-envelope icon-modify"></i>
-                            <input type="email" placeholder="Email" name="email">
-                        </label>
-                        <label class="label-input" for="">
-                            <i class="fas fa-lock icon-modify"></i>
-                            <input type="password" placeholder="Senha" name="password">
-                        </label>
-                        <a class="password" href="#">forgot your password?</a>
-                        <button class="btn btn-second">Entrar</button>
-                    </form>
-                </div><!-- second column -->
-            </div>
-            <div class="content second-content">
-                
-                <div class="first-column">
-                    <h2 class="title title-primary">Arka</h2>
-                <p class="description description-primary">O futuro agora!</p>
-                    <button id="signup" class="btn btn-primary">Entrar</button>
-                </div>    
-                <div class="second-column">
-                    <h2 class="title title-second">Cadastrar Conta</h2>
-                    <div class="social-media">
-                        <p class="description"><%- message %></p>
-                    </div>
-                    <form class="form" method="POST" action="../registro">
-                        <label class="label-input" for="">
-                            <i class="far fa-envelope icon-modify"></i>
-                            <input type="email" placeholder="Email" name="email">
-                        </label>
-                        
-                        <label class="label-input" for="">
-                            <i class="fas fa-lock icon-modify"></i>
-                            <input type="password" placeholder="Senha" name="password">
-                        </label>
-                        
-                        <label class="label-input" for="">
-                            <i class="fas fa-lock icon-modify"></i>
-                            <input type="password" placeholder="Repitir Senha" name="rpassword">
-                        </label>
-                        <button class="btn btn-second">Cadastrar</button>        
-                    </form>
-                </div><!-- second column -->
-            </div>
-        </div>
-    <% } %>
     <script src="../js/app.js"></script>
 </body>
 </html>

@@ -14,7 +14,12 @@ const Grupo = require(`./model/Grupo/Model`);
 const Instagram = require(`./model/Instagram/Model`);
 const LicenseInsta = require(`./model/LicenseInsta/Model`);
 const Payment = require(`./model/Payment/Model`);
+const Afiliado = require(`./model/Afiliados/Afiliado`);
+const CadAfiliado = require(`./model/Afiliados/CadAfiliado`);
+const VendAfiliado = require(`./model/Afiliados/VendAfiliado`);
+const PagAfiliado = require(`./model/Afiliados/PagAfiliado`);
 const Venda = require(`./model/Venda/Model`);
+
 
 //Carregando Passport
 const passport = require('passport');
@@ -105,6 +110,9 @@ app.use('/', indexRouter);
 
 const mpRouter = require('./router/mp-router');
 app.use('/checkout', mpRouter);
+
+const afiliadoRouter = require('./router/afiliado-router');
+app.use('/afiliado', afiliadoRouter)
 
 app.use((req, res, next) => {
     return res.render('notvalidlink', { user: [], erro: "Pagina não encontrada" });

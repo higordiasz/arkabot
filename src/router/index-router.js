@@ -20,7 +20,7 @@ router.all('/', (req, res, next) => {
     res.render('cronometro', {seconds: seconds});
 })
 */
-router.all ('/', (req, res, next) => {
+router.all('/', (req, res, next) => {
     res.render('index', {})
 })
 
@@ -51,7 +51,16 @@ router.get('/logout', (req, res, next) => {
     req.logout();
     req.flash('success_msg', 'Desconectado');
     res.redirect('/');
-  });
+});
+
+router.get('/cadastro', (req, res, next) => {
+    let json = req.query;
+    if (!json.code) {
+        res.render('cadafiliado', { message: "", code: "arka" })
+    } else {
+        res.render('cadafiliado', { message: "", code: json.code })
+    }
+})
 
 router.all('/painel', ensureAuthenticated, painelController.loadPainel)
 
@@ -63,13 +72,13 @@ router.all('/globais', ensureAuthenticated, painelController.loadGlobais)
 
 router.all('/adquirir', ensureAuthenticated, painelController.loadAdquirir)
 
-router.all('/suporte01', ensureAuthenticated, (req, res, next) => res.render('suporte01', {message: ""}))
+router.all('/suporte01', ensureAuthenticated, (req, res, next) => res.render('suporte01', { message: "" }))
 
-router.all('/suporte02', ensureAuthenticated, (req, res, next) => res.render('suporte02', {message: ""}))
+router.all('/suporte02', ensureAuthenticated, (req, res, next) => res.render('suporte02', { message: "" }))
 
-router.all('/email', ensureAuthenticated, (req, res, next) => res.render('suporte01', {message: ""}))
+router.all('/email', ensureAuthenticated, (req, res, next) => res.render('suporte01', { message: "" }))
 
-router.all('/download', ensureAuthenticated, (req, res, next) => res.render('download', {message: ""}))
+router.all('/download', ensureAuthenticated, (req, res, next) => res.render('download', { message: "" }))
 
 //POST
 
