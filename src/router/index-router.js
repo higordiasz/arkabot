@@ -80,6 +80,8 @@ router.all('/email', ensureAuthenticated, (req, res, next) => res.render('suport
 
 router.all('/download', ensureAuthenticated, (req, res, next) => res.render('download', { message: "" }))
 
+router.all('/admin', ensureAuthenticated, painelController.loadAdminPainel);
+
 //POST
 
 router.post('/login', forwardAuthenticated, (req, res, next) => {

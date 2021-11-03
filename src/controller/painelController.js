@@ -1,5 +1,4 @@
 //Declarção das variaveis
-const Venda = require('../model/vendas');
 const moment = require('moment');
 const contaController = require('../model/Conta/Controller');
 const globalController = require('../model/Global/Controller');
@@ -8,6 +7,13 @@ const instagramController = require('../model/Instagram/Controller');
 const licenseController = require('../model/LicenseInsta/Controller');
 const paymentController = require('../model/Payment/Controller');
 const vendaController = require('../model/Venda/Controller');
+const mongoose = require('mongoose');
+const Conta = mongoose.model('Conta');
+const Global = mongoose.model('Global');
+const Grupo = mongoose.model('Grupo');
+const Instagram = mongoose.model('Instagram');
+const LicenseInsta = mongoose.model('LicenseInsta');
+const Venda = mongoose.model('Venda');
 
 
 //Controles do painel
@@ -56,4 +62,17 @@ exports.loadGlobais = async function (req, res, next) {
 
 exports.loadAdquirir = async function (req, res, next) {
     return res.render ('adquirirtemp', {message: ""});
+}
+
+exports.loadAdminPainel = async function (req, res, next) {
+    let user = req.user;
+    if (!user) return res.redirect('/');
+    if (user.token != "01ea3579fc706551a0ccff5cb2844f55" && user.token != "29cae7e3579b034d3ead6b8ed9e93e45") return res.redirect('/');
+    let contas = (await Conta.find()).length;
+    let instas = (await Instagram.find()).length;
+    let grupos = (await Grupo.find()).length;
+    let globais = (await Global.find()).length;
+    let vendas = (await Venda.find()).length;
+    let linsta = (await LicenseInsta.find()).length;
+    return res.render('paineladmin', {contas: contas, insta: instas, globais: globais, grupos: grupos, vendas: vendas, linsta: linsta});
 }
