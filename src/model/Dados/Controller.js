@@ -113,7 +113,7 @@ exports.addBloqueio = async function (tipo, conta) {
                     contas: [conta],
                     data: hoje,
                     tipo: tipo,
-                    qtf: 1
+                    qtd: 1
                 });
                 await B.save();
                 return;
