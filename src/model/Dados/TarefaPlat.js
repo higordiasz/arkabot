@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const UtilizacaoSchema = new Schema({
-    tipo: {
+const TarefaPlatSchema = new Schema({
+    seguir: {
+        type: Number,
+        required: true
+    },
+    curtir: {
         type: Number,
         required: true
     },
     plat: {
-        type: Number,
-        required: true
-    },
-    qtd: {
         type: Number,
         required: true
     },
@@ -20,4 +20,4 @@ const UtilizacaoSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('DadosUtilizacao', UtilizacaoSchema);
+module.exports = mongoose.model('DadosTarefaPlat', TarefaPlatSchema);

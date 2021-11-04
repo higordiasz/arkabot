@@ -9,6 +9,7 @@ const instagramController = require('../model/Instagram/Controller');
 const licenseController = require('../model/LicenseInsta/Controller');
 const paymentController = require('../model/Payment/Controller');
 const vendaController = require('../model/Venda/Controller');
+const dadosController = require('../model/Dados/Controller');
 const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth');
 const painelController = require('../controller/painelController');
 /*
@@ -101,6 +102,7 @@ router.post('/registro', forwardAuthenticated, async (req, res, next) => {
     if (json.password != json.rpassword) return res.render('logcreate', { message: "As senhas não são iguais", tipo: 2 });
     let u = await contaController.createAccount(json.email, json.password, json.avatar != null ? json.avatar : "nenhum");
     if (!u) return res.render('logcreate', { message: "Email ja cadastrado", tipo: 2 });
+    dadosController.addCadastro();
     return res.render('logcreate', { message: "Cadastro realizado com sucesso", tipo: 2 });
 })
 

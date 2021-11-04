@@ -6,6 +6,7 @@ const instagramController = require('../model/Instagram/Controller');
 const licenseController = require('../model/LicenseInsta/Controller');
 const paymentController = require('../model/Payment/Controller');
 const vendaController = require('../model/Venda/Controller');
+const dadosController = require('../model/Dados/Controller');
 const afiliadoController = require('../model/Afiliados/Controller');
 const moment = require('moment');
 const useragentFromSeed = require('useragent-from-seed');
@@ -65,6 +66,7 @@ exports.createCadAfiliado = async function (req, res, next) {
         if (json.password != json.rpassword) return res.render('cadafiliado', { message: "As senhas não são iguais", code: json.code });
         let u = await contaController.createAccount(json.email, json.password, json.avatar != null ? json.avatar : "nenhum");
         if (!u) return res.render('cadafiliado', { message: "Email ja cadastrado", code: json.code });
+        dadosController.addCadastro();
         let cad = {
             token_cadastrado: u.token,
             email: u.email

@@ -19,6 +19,14 @@ const CadAfiliado = require(`./model/Afiliados/CadAfiliado`);
 const VendAfiliado = require(`./model/Afiliados/VendAfiliado`);
 const PagAfiliado = require(`./model/Afiliados/PagAfiliado`);
 const Venda = require(`./model/Venda/Model`);
+const DadosAtivo = require(`./model/Dados/Ativo`);
+const DadosBloqueio = require(`./model/Dados/Bloqueio`);
+const DadosCadastro = require(`./model/Dados/Cadastro`);
+const DadosCadastroInsta = require(`./model/Dados/InstaCadastro`);
+const DadosPlatAtivo = require(`./model/Dados/PlatAtivo`);
+const DadosTarefa = require(`./model/Dados/Tarefa`);
+const DadosTarefaPlat = require(`./model/Dados/TarefaPlat`);
+const DadosUtilizacao = require(`./model/Dados/Utilizacao`);
 
 
 //Carregando Passport

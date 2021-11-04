@@ -7,6 +7,7 @@ const instagramController = require('../model/Instagram/Controller');
 const licenseController = require('../model/LicenseInsta/Controller');
 const paymentController = require('../model/Payment/Controller');
 const vendaController = require('../model/Venda/Controller');
+const dadosController = require('../model/Dados/Controller');
 const mongoose = require('mongoose');
 const Conta = mongoose.model('Conta');
 const Global = mongoose.model('Global');
@@ -74,5 +75,14 @@ exports.loadAdminPainel = async function (req, res, next) {
     let globais = (await Global.find()).length;
     let vendas = (await Venda.find()).length;
     let linsta = (await LicenseInsta.find()).length;
-    return res.render('paineladmin', {contas: contas, insta: instas, globais: globais, grupos: grupos, vendas: vendas, linsta: linsta});
+    let t = await dadosController.getTarefasHoje();
+    let tqtd = 0;
+    if (t != null)
+        tqtd = t.seguir + t.curtir;
+    let cadcontas = await dadosController.getQtdCadastroHoje();
+    let cadinsta = await dadosController.getQtdCadastroInstaHoje();
+    let block = await dadosController.getBloqueiosHojeByTipo(0);
+    let challenge = await dadosController.getBloqueiosHojeByTipo(1);
+    let incorrect = await dadosController.getBloqueiosHojeByTipo(2);
+    return res.render('paineladmin', {contas: contas, insta: instas, globais: globais, grupos: grupos, vendas: vendas, linsta: linsta, tarefas: tqtd, cadconta: cadcontas, cadinsta: cadinsta, block: block, challenge: challenge, incorrect: incorrect});
 }
