@@ -94,4 +94,6 @@ router.post('/addlicence', Controller.addLicence);
 
 router.post('/checklicence', Controller.validateLicence);
 
+router.post('/getgis', Controller.getGis);
+
 module.exports = router;

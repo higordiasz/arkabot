@@ -9,6 +9,7 @@ const vendaController = require('../model/Venda/Controller');
 const moment = require('moment');
 const useragentFromSeed = require('useragent-from-seed');
 const dadosController = require('../model/Dados/Controller');
+const crypto = require('crypto');
 
 //Controles Administrador
 /*
@@ -508,7 +509,17 @@ exports.validateLicence = async function (req, res, next) {
 
 exports.getUserAgentFromSeed = async function (req, res, next) {
     let json = req.body;
-    if(!json) return res.status(200).send({status: 0, erro: ""});
-    if(!json.username) return res.status(200).send({status: 0, erro: ""});
-    return res.status(200).send({status: 1, erro: useragentFromSeed(json.username)});
+    if (!json) return res.status(200).send({ status: 0, erro: "" });
+    if (!json.username) return res.status(200).send({ status: 0, erro: "" });
+    return res.status(200).send({ status: 1, erro: useragentFromSeed(json.username) });
+}
+
+exports.getGis = async function (req, res, next) {
+    let path = req.query.path;
+    let { rhx_gis } = req.body;
+    let retorno = crypto
+        .createHash('md5')
+        .update(`${rhx_gis}:${path}`)
+        .digest('hex');
+    return res.status(200).send(retorno);
 }
