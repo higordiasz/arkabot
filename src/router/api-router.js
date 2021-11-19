@@ -90,6 +90,8 @@ router.post('/getallglobals', Controller.getAllGlobal);
 
 //Administração
 
+router.post('/addua', Controller.adicionarUA);
+
 router.post('/addlicence', Controller.addLicence);
 
 router.post('/checklicence', Controller.validateLicence);

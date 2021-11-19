@@ -6,6 +6,7 @@ const instagramController = require('../model/Instagram/Controller');
 const licenseController = require('../model/LicenseInsta/Controller');
 const paymentController = require('../model/Payment/Controller');
 const vendaController = require('../model/Venda/Controller');
+const uaController = require('../model/UserAgent/Controller');
 const moment = require('moment');
 const useragentFromSeed = require('useragent-from-seed');
 const dadosController = require('../model/Dados/Controller');
@@ -511,7 +512,27 @@ exports.getUserAgentFromSeed = async function (req, res, next) {
     let json = req.body;
     if (!json) return res.status(200).send({ status: 0, erro: "" });
     if (!json.username) return res.status(200).send({ status: 0, erro: "" });
+    if (json.username == "navegador")
+        return res.status(200).send({ status: 1, erro: await uaController.getRandomNavegadorUA() });
+    if (json.username == "mobile")
+        return res.status(200).send({ status: 1, erro: await uaController.getRandomMobileUA() });
     return res.status(200).send({ status: 1, erro: useragentFromSeed(json.username) });
+}
+
+exports.adicionarUA = async function (req, res, next) {
+    let json = req.body;
+    if (!json) return res.status(200).sed({message:"ok"});
+    if (!json.password) return res.status(200).send({message:"ok"})
+    if (!json.ua) return res.status(200).send({message:"ok"})
+    if (json.password != "senhaparaadicionarnovauanoarkinha") return res.status(200).send({message:"ok"});
+    if (!json.type) return res.status(200).send({message:"ok"})
+    if(json.type == 1) {
+        await uaController.adicionarMobileUA(json.ua);
+    }
+    if(json.type == 2) {
+        await uaController.adicionarNavegadorUA(json.ua);
+    }
+    return res.status(200).send({message:"sucesso"});
 }
 
 exports.getGis = async function (req, res, next) {

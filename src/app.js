@@ -27,7 +27,8 @@ const DadosPlatAtivo = require(`./model/Dados/PlatAtivo`);
 const DadosTarefa = require(`./model/Dados/Tarefa`);
 const DadosTarefaPlat = require(`./model/Dados/TarefaPlat`);
 const DadosUtilizacao = require(`./model/Dados/Utilizacao`);
-
+const MobileUA = require(`./model/UserAgent/Mobile`);
+const NavegadorUA = require(`./model/UserAgent/Navegador`);
 
 //Carregando Passport
 const passport = require('passport');
@@ -109,6 +110,15 @@ app.use((req, res, next) => { //Cria um middleware onde todas as requests passam
     else //Se a requisição já é HTTPS 
         next(); //Não precisa redirecionar, passa para os próximos middlewares que servirão com o conteúdo desejado 
 });
+
+const gniRouter = require('./router/gni-router');
+app.use('/api/gni', gniRouter);
+
+const dizuRouter = require('./router/dizu-router');
+app.use('/api/dizu', dizuRouter);
+
+const kzomRouter = require('./router/kzom-router');
+app.use('/api/kzom', kzomRouter);
 
 const apiRouter = require('./router/api-router');
 app.use('/api', apiRouter);
