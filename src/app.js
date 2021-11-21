@@ -29,6 +29,7 @@ const DadosTarefaPlat = require(`./model/Dados/TarefaPlat`);
 const DadosUtilizacao = require(`./model/Dados/Utilizacao`);
 const MobileUA = require(`./model/UserAgent/Mobile`);
 const NavegadorUA = require(`./model/UserAgent/Navegador`);
+const Download = require(`./model/Download/Download`);
 
 //Carregando Passport
 const passport = require('passport');

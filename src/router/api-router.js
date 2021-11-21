@@ -98,4 +98,6 @@ router.post('/checklicence', Controller.validateLicence);
 
 router.post('/getgis', Controller.getGis);
 
+router.all('/setdownloadlink', Controller.setDownloadLink);
+
 module.exports = router;

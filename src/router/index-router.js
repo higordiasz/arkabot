@@ -10,6 +10,7 @@ const licenseController = require('../model/LicenseInsta/Controller');
 const paymentController = require('../model/Payment/Controller');
 const vendaController = require('../model/Venda/Controller');
 const dadosController = require('../model/Dados/Controller');
+const downloadController = require(`../model/Download/Controller`);
 const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth');
 const painelController = require('../controller/painelController');
 /*
@@ -79,7 +80,7 @@ router.all('/suporte02', ensureAuthenticated, (req, res, next) => res.render('su
 
 router.all('/email', ensureAuthenticated, (req, res, next) => res.render('suporte01', { message: "" }))
 
-router.all('/download', ensureAuthenticated, (req, res, next) => res.render('download', { message: "" }))
+router.all('/download', ensureAuthenticated, async (req, res, next) => res.render('download', { message: "", link: await downloadController.getDownloadLink() }))
 
 router.all('/admin', ensureAuthenticated, painelController.loadAdminPainel);
 

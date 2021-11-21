@@ -10,6 +10,7 @@ const uaController = require('../model/UserAgent/Controller');
 const moment = require('moment');
 const useragentFromSeed = require('useragent-from-seed');
 const dadosController = require('../model/Dados/Controller');
+const downloadController = require('../model/Download/Controller');
 const crypto = require('crypto');
 
 //Controles Administrador
@@ -543,4 +544,14 @@ exports.getGis = async function (req, res, next) {
         .update(`${rhx_gis}:${path}`)
         .digest('hex');
     return res.status(200).send(retorno);
+}
+
+exports.setDownloadLink = async function (req, res, next) {
+    let json = req.body;
+    let query = req.query;
+    if (!json && !query) return res.redirect("/");
+    if (!json.link && !query.link) return res.redirect("/");
+    let link = json.link != null ? json.link : query.link;
+    await downloadController.setDownloadLink(link);
+    return res.status(200).send({message: "ok"})
 }
