@@ -36,7 +36,7 @@ exports.loadPainel = async function (req, res, next) {
         let instaLicence = "Adquirida.";
         if (!await licenseController.validateLicenceInstagram(user.token))
             instaLicence = "Não adquirido.";
-        return res.render('painel', { Insta: instagram != null ? instagram.length:0, Grupos: grupos != null ? grupos.length:0, Globais: global != null ? global.length:0, Compras: c , instaLicence: instaLicence});
+        return res.render('painel', { Insta: instagram != null ? instagram.length : 0, Grupos: grupos != null ? grupos.length : 0, Globais: global != null ? global.length : 0, Compras: c, instaLicence: instaLicence });
     } catch (err) {
         console.log(err)
         return res.render('login', { message: err.message });
@@ -45,24 +45,24 @@ exports.loadPainel = async function (req, res, next) {
 
 exports.loadInstagram = async function (req, res, next) {
     let user = req.user;
-    if (!user) return res.render('instagram', { Insta: []});
-    return res.render('instagram', { Insta: await instagramController.getAllContas(user.token)});
+    if (!user) return res.render('instagram', { Insta: [] });
+    return res.render('instagram', { Insta: await instagramController.getAllContas(user.token) });
 }
 
 exports.loadGrupos = async function (req, res, next) {
     let user = req.user;
-    if (!user) return res.render('grupos', { Grupos: []});
-    return res.render('grupos', { Grupos: await grupoController.getAllGrupo(user.token)});
+    if (!user) return res.render('grupos', { Grupos: [] });
+    return res.render('grupos', { Grupos: await grupoController.getAllGrupo(user.token) });
 }
 
 exports.loadGlobais = async function (req, res, next) {
     let user = req.user;
-    if (!user) return res.render('globais', { Globais: []});
-    return res.render('globais', { Globais: await globalController.getAllGlobal(user.token)});
+    if (!user) return res.render('globais', { Globais: [] });
+    return res.render('globais', { Globais: await globalController.getAllGlobal(user.token) });
 }
 
 exports.loadAdquirir = async function (req, res, next) {
-    return res.render ('adquirirtemp', {message: ""});
+    return res.render('adquirirtemp', { message: "" });
 }
 
 exports.loadAdminPainel = async function (req, res, next) {
@@ -84,17 +84,59 @@ exports.loadAdminPainel = async function (req, res, next) {
     let block = await dadosController.getBloqueiosHojeByTipo(0);
     let challenge = await dadosController.getBloqueiosHojeByTipo(1);
     let incorrect = await dadosController.getBloqueiosHojeByTipo(2);
-    return res.render('paineladmin', {contas: contas, insta: instas, globais: globais, grupos: grupos, vendas: vendas, linsta: linsta, tarefas: tqtd, cadconta: cadcontas, ativos: ativos, block: block, challenge: challenge, incorrect: incorrect});
+    return res.render('paineladmin', { contas: contas, insta: instas, globais: globais, grupos: grupos, vendas: vendas, linsta: linsta, tarefas: tqtd, cadconta: cadcontas, ativos: ativos, block: block, challenge: challenge, incorrect: incorrect });
 }
 
 exports.loadAdminGniPainel = async function (req, res, next) {
-
+    let user = req.user;
+    if (!user) return res.redirect('/');
+    if (user.token != "01ea3579fc706551a0ccff5cb2844f55" && user.token != "29cae7e3579b034d3ead6b8ed9e93e45") return res.redirect('/');
+    let t = await dadosController.getTarefasHojePlat(1);
+    let tqtd = 0;
+    if (t != null)
+        tqtd = t.seguir + t.curtir;
+    let ativos = await dadosController.getAtivoshojePlat(1);
+    let block = await dadosController.getBloqueiosHojeByTipoPlat(0, 1);
+    let challenge = await dadosController.getBloqueiosHojeByTipoPlat(1, 1);
+    let incorrect = await dadosController.getBloqueiosHojeByTipoPlat(2, 1);
+    return res.render('paineladmingni', { tarefas: tqtd, ativos: ativos, block: block, challenge: challenge, incorrect: incorrect });
 }
 
 exports.loadAdminKzomPainel = async function (req, res, next) {
-
+    let user = req.user;
+    if (!user) return res.redirect('/');
+    if (user.token != "01ea3579fc706551a0ccff5cb2844f55" && user.token != "29cae7e3579b034d3ead6b8ed9e93e45") return res.redirect('/');
+    let t = await dadosController.getTarefasHojePlat(2);
+    let tqtd = 0;
+    if (t != null)
+        tqtd = t.seguir + t.curtir;
+    let ativos = await dadosController.getAtivoshojePlat(2);
+    let block = await dadosController.getBloqueiosHojeByTipoPlat(0, 2);
+    let challenge = await dadosController.getBloqueiosHojeByTipoPlat(1, 2);
+    let incorrect = await dadosController.getBloqueiosHojeByTipoPlat(2, 2);
+    return res.render('paineladminkzom', { tarefas: tqtd, ativos: ativos, block: block, challenge: challenge, incorrect: incorrect });
 }
 
 exports.loadAdminDizuPainel = async function (req, res, next) {
+    let user = req.user;
+    if (!user) return res.redirect('/');
+    if (user.token != "01ea3579fc706551a0ccff5cb2844f55" && user.token != "29cae7e3579b034d3ead6b8ed9e93e45") return res.redirect('/');
+    let t = await dadosController.getTarefasHojePlat(3);
+    let tqtd = 0;
+    if (t != null)
+        tqtd = t.seguir + t.curtir;
+    let ativos = await dadosController.getAtivoshojePlat(3);
+    let block = await dadosController.getBloqueiosHojeByTipoPlat(0, 3);
+    let challenge = await dadosController.getBloqueiosHojeByTipoPlat(1, 3);
+    let incorrect = await dadosController.getBloqueiosHojeByTipoPlat(2, 3);
+    return res.render('paineladmindizu', { tarefas: tqtd, ativos: ativos, block: block, challenge: challenge, incorrect: incorrect });
+}
 
+exports.loadAdminReportAllDaysActive = async function (req, res, next) {
+    let user = req.user;
+    if (!user) return res.redirect('/');
+    if (user.token != "01ea3579fc706551a0ccff5cb2844f55" && user.token != "29cae7e3579b034d3ead6b8ed9e93e45") return res.redirect('/');
+    let list = await dadosController.getAllDaysActiveList();
+    list.reverse();
+    return res.render('paineladminlistalldaysativo', { list: list });
 }

@@ -125,6 +125,9 @@ app.use('/api/kzom', kzomRouter);
 const apiRouter = require('./router/api-router');
 app.use('/api', apiRouter);
 
+const adminRouter = require('./router/admin-router');
+app.use('/admin', adminRouter);
+
 const indexRouter = require('./router/index-router');
 app.use('/', indexRouter);
 

@@ -335,6 +335,35 @@ exports.getAllTarefas = async function () {
     }
 }
 
+exports.getAllDaysActiveList = async function () {
+    let ativos = await DadosAtivo.find();
+    if (ativos != null) {
+        if (ativos.length > 0) {
+            let retorno = [];
+            for (let i = 0; i < ativos.length; i++) {
+                let json = {
+                    r: 0,
+                    t : ativos[i].qtd,
+                    day: ativos[i].data
+                };
+                if (i > 0) {
+                    let tokensant = ativos[i - 1].token;
+                    let tokensat = ativos[i].token;
+                    let aux = 0;
+                    for (let j = 0; j < tokensat.length; j++) {
+                        if (tokensant.find(t => t == tokensat[j]) != null)
+                            aux++;
+                    }
+                    json.r = aux;
+                }
+                retorno.push(json);
+            }
+            return retorno;
+        }
+    }
+    return [];
+}
+
 exports.getAtivosHoje = async function () {
     try {
         let hoje = moment(new Date(), "DD/MM/YYYY").format("DD/MM/YYYY").toString();
