@@ -7,8 +7,6 @@ const Controller = require('../controller/dizuController');
 
 //Usuarios
 
-router.post('/login', Controller.loginBot);
-
 router.post('/checktoken', Controller.checkToken);
 
 //Instagram

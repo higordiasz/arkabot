@@ -7,7 +7,8 @@ const DadosCadastro = mongoose.model('DadosCadastro');
 const DadosCadastroInsta = mongoose.model('DadosCadastroInsta');
 const DadosPlatAtivo = mongoose.model('DadosPlatAtivo');
 const DadosTarefa = mongoose.model('DadosTarefa');
-const DadosTarefaPlat = mongoose.model('DadosTarefaPlat')
+const DadosTarefaPlat = mongoose.model('DadosTarefaPlat');
+const DadosBloqueioPlat = mongoose.model('DadosBloqueioPlat');
 const DadosUtilizacao = mongoose.model('DadosUtilizacao');
 
 // Pegar a data de hoje em string: let hoje = moment(new Date(), "DD/MM/YYYY").format("DD/MM/YYYY").toString();
@@ -41,6 +42,53 @@ exports.addTarefa = async function (tipo) {
                         seguir: 0,
                         curtir: 1,
                         data: hoje
+                    });
+                    await T.save();
+                    return;
+                } else {
+                    T.curtir += 1;
+                    await T.save();
+                    return;
+                }
+            }
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// 1 = GNI / 2 = KZOM / 3 = DIZU
+exports.addTarefaPat = async function (tipo, plat) {
+    try {
+        if (tipo == 1) {
+            //Tarefa de Seguir
+            let hoje = moment(new Date(), "DD/MM/YYYY").format("DD/MM/YYYY").toString();
+            let T = await DadosTarefaPlat.findOne({ data: hoje, plat: plat });
+            if (T == null) {
+                T = new DadosTarefaPlat({
+                    seguir: 1,
+                    curtir: 0,
+                    data: hoje,
+                    plat: plat
+                });
+                await T.save();
+                return;
+            } else {
+                T.seguir += 1;
+                await T.save();
+                return;
+            }
+        } else {
+            if (tipo == 2) {
+                //Tarefa de Curtir
+                let hoje = moment(new Date(), "DD/MM/YYYY").format("DD/MM/YYYY").toString();
+                let T = await DadosTarefaPlat.findOne({ data: hoje, plat: plat });
+                if (T == null) {
+                    T = new DadosTarefaPlat({
+                        seguir: 0,
+                        curtir: 1,
+                        data: hoje,
+                        plat: plat
                     });
                     await T.save();
                     return;
@@ -102,6 +150,34 @@ exports.addAtivo = async function (token) {
     }
 }
 
+// 1 = GNI / 2 = KZOM / 3 = DIZU
+exports.addAtivoPlat = async function (token, plat) {
+    try {
+        let hoje = moment(new Date(), "DD/MM/YYYY").format("DD/MM/YYYY").toString();
+        let A = await DadosPlatAtivo.findOne({ data: hoje, plat: plat });
+        if (A != null) {
+            let tokens = A.token;
+            if (!tokens.includes(token)) {
+                A.qtd += 1;
+                A.token.push(token);
+                await A.save();
+                return;
+            }
+        } else {
+            A = new DadosPlatAtivo({
+                data: hoje,
+                qtd: 1,
+                plat: plat,
+                token: [token]
+            });
+            await A.save();
+            return;
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 //0 = block action, 1 = challenge, 2 = incorrect
 exports.addBloqueio = async function (tipo, conta) {
     try {
@@ -114,6 +190,35 @@ exports.addBloqueio = async function (tipo, conta) {
                     data: hoje,
                     tipo: tipo,
                     qtd: 1
+                });
+                await B.save();
+                return;
+            } else {
+                B.contas.push(conta);
+                B.qtd += 1;
+                await B.save();
+                return;
+            }
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+//0 = block action, 1 = challenge, 2 = incorrect
+// 1 = GNI / 2 = KZOM / 3 = DIZU
+exports.addBloqueioPlat = async function (tipo, conta, plat) {
+    try {
+        let hoje = moment(new Date(), "DD/MM/YYYY").format("DD/MM/YYYY").toString();
+        if (tipo == 1 || tipo == 2 || tipo == 0) {
+            let B = await DadosBloqueioPlat.findOne({ data: hoje, tipo: tipo, plat: plat });
+            if (B == null) {
+                B = new DadosBloqueioPlat({
+                    contas: [conta],
+                    data: hoje,
+                    tipo: tipo,
+                    qtd: 1,
+                    plat: plat
                 });
                 await B.save();
                 return;
@@ -154,7 +259,7 @@ exports.getBloqueiosHojeByTipo = async function (tipo) {
     try {
         let hoje = moment(new Date(), "DD/MM/YYYY").format("DD/MM/YYYY").toString();
         if (tipo == 1 || tipo == 2 || tipo == 0) {
-            let B = await DadosBloqueio.findOne({data: hoje, tipo: tipo});
+            let B = await DadosBloqueio.findOne({ data: hoje, tipo: tipo });
             if (B != null)
                 return B.qtd;
             return 0;
@@ -227,5 +332,66 @@ exports.getAllTarefas = async function () {
     } catch (err) {
         console.log(err);
         return [];
+    }
+}
+
+exports.getAtivosHoje = async function () {
+    try {
+        let hoje = moment(new Date(), "DD/MM/YYYY").format("DD/MM/YYYY").toString();
+        let T = await DadosAtivo.findOne({ data: hoje });
+        if (T != null) {
+            return T.qtd;
+        }
+        return 0;
+    } catch (err) {
+        console.log(err);
+        return 0;
+    }
+}
+
+exports.getAtivoshojePlat = async function (plat) {
+    try {
+        let hoje = moment(new Date(), "DD/MM/YYYY").format("DD/MM/YYYY").toString();
+        let T = await DadosPlatAtivo.findOne({ data: hoje, plat: plat });
+        if (T != null) {
+            return T.qtd;
+        }
+        return 0;
+    } catch (err) {
+        console.log(err);
+        return 0;
+    }
+}
+
+exports.getBloqueiosHojeByTipoPlat = async function (tipo, plat) {
+    try {
+        let hoje = moment(new Date(), "DD/MM/YYYY").format("DD/MM/YYYY").toString();
+        if (tipo == 1 || tipo == 2 || tipo == 0) {
+            let B = await DadosBloqueioPlat.findOne({ data: hoje, tipo: tipo, plat: plat });
+            if (B != null)
+                return B.qtd;
+            return 0;
+        }
+        return -1;
+    } catch (err) {
+        console.log(err)
+        return -1;
+    }
+}
+
+exports.getTarefasHojePlat = async function (plat) {
+    try {
+        let hoje = moment(new Date(), "DD/MM/YYYY").format("DD/MM/YYYY").toString();
+        let T = await DadosTarefaPlat.findOne({ data: hoje, plat: plat });
+        if (T != null) {
+            let ret = T.toJSON();
+            delete ret._id;
+            delete ret.__v;
+            return ret;
+        }
+        return null;
+    } catch (err) {
+        console.log(err);
+        return null;
     }
 }

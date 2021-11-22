@@ -7,8 +7,6 @@ const Controller = require('../controller/kzomController');
 
 //Usuarios
 
-router.post('/login', Controller.loginBot);
-
 router.post('/checktoken', Controller.checkToken);
 
 //Instagram

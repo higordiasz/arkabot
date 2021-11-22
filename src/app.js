@@ -26,6 +26,7 @@ const DadosCadastroInsta = require(`./model/Dados/InstaCadastro`);
 const DadosPlatAtivo = require(`./model/Dados/PlatAtivo`);
 const DadosTarefa = require(`./model/Dados/Tarefa`);
 const DadosTarefaPlat = require(`./model/Dados/TarefaPlat`);
+const DadosBloqueioPlat = require('./model/Dados/BloqueioPlat');
 const DadosUtilizacao = require(`./model/Dados/Utilizacao`);
 const MobileUA = require(`./model/UserAgent/Mobile`);
 const NavegadorUA = require(`./model/UserAgent/Navegador`);

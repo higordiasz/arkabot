@@ -80,9 +80,21 @@ exports.loadAdminPainel = async function (req, res, next) {
     if (t != null)
         tqtd = t.seguir + t.curtir;
     let cadcontas = await dadosController.getQtdCadastroHoje();
-    let cadinsta = await dadosController.getQtdCadastroInstaHoje();
+    let ativos = await dadosController.getAtivosHoje();
     let block = await dadosController.getBloqueiosHojeByTipo(0);
     let challenge = await dadosController.getBloqueiosHojeByTipo(1);
     let incorrect = await dadosController.getBloqueiosHojeByTipo(2);
-    return res.render('paineladmin', {contas: contas, insta: instas, globais: globais, grupos: grupos, vendas: vendas, linsta: linsta, tarefas: tqtd, cadconta: cadcontas, cadinsta: cadinsta, block: block, challenge: challenge, incorrect: incorrect});
+    return res.render('paineladmin', {contas: contas, insta: instas, globais: globais, grupos: grupos, vendas: vendas, linsta: linsta, tarefas: tqtd, cadconta: cadcontas, ativos: ativos, block: block, challenge: challenge, incorrect: incorrect});
+}
+
+exports.loadAdminGniPainel = async function (req, res, next) {
+
+}
+
+exports.loadAdminKzomPainel = async function (req, res, next) {
+
+}
+
+exports.loadAdminDizuPainel = async function (req, res, next) {
+
 }
