@@ -335,6 +335,92 @@ exports.getAllTarefas = async function () {
     }
 }
 
+exports.getAllDaysBlock = async function () {
+    let block = await DadosBloqueio.find({tipo: 0});
+    let challenge = await DadosBloqueio.find({tipo: 1});
+    let incorrect = await DadosBloqueio.find({tipo: 2});
+    let retorno = [];
+    let max = block.length >= challenge.length ? (block.length >= incorrect.length ? 0 : 2) : challenge.length >= incorrect.length ? 1 : 2;
+    if (max == 0) {
+        for (let i = 0; i < block.length; i++) {
+            let json = {
+                b: block[i].qtd,
+                c: 0,
+                i: 0,
+                t: 0,
+                day: block[i].data
+            };
+            let ch = challenge.find(c => c.data == json.day);
+            if (ch != null)
+                json.c = ch.qtd;
+            let inc = incorrect.find(i => i.data == json.day);
+            if (inc != null)
+                json.i = inc.qtd;
+            json.t = json.b + json.c + json.i;
+            retorno.push(json);
+        }
+    }
+    if (max == 1) {
+        for (let i = 0; i < challenge.length; i++) {
+            let json = {
+                c: challenge[i].qtd,
+                b: 0,
+                i: 0,
+                t: 0,
+                day: challenge[i].data
+            };
+            let ch = block.find(c => c.data == json.day);
+            if (ch != null)
+                json.b = ch.qtd;
+            let inc = incorrect.find(i => i.data == json.day);
+            if (inc != null)
+                json.i = inc.qtd;
+            json.t = json.b + json.c + json.i;
+            retorno.push(json);
+        }
+    }
+    if (max == 2) {
+        for (let i = 0; i < incorrect.length; i++) {
+            let json = {
+                i: incorrect[i].qtd,
+                c: 0,
+                b: 0,
+                t: 0,
+                day: incorrect[i].data
+            };
+            let ch = challenge.find(c => c.data == json.day);
+            if (ch != null)
+                json.c = ch.qtd;
+            let inc = block.find(i => i.data == json.day);
+            if (inc != null)
+                json.b = inc.qtd;
+            json.t = json.b + json.c + json.i;
+            retorno.push(json);
+        }
+    }
+    return retorno;
+}
+
+exports.getAllDaysTaskList = async function () {
+    let task = await DadosTarefa.find();
+    if (task != null) {
+        if (task.length > 0) {
+            let retorno = [];
+            for (let i = 0; i < task.length; i++) {
+                let json = {
+                    s: task[i].seguir,
+                    c: task[i].curtir,
+                    t: task[i].seguir + task[i].curtir,
+                    day: task[i].data
+                }
+                retorno.push(json);
+            }
+            return retorno;
+        }
+    }
+    return [];
+}
+
 exports.getAllDaysActiveList = async function () {
     let ativos = await DadosAtivo.find();
     if (ativos != null) {

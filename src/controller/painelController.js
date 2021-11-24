@@ -140,3 +140,21 @@ exports.loadAdminReportAllDaysActive = async function (req, res, next) {
     list.reverse();
     return res.render('paineladminlistalldaysativo', { list: list });
 }
+
+exports.loadTaskReport = async function (req, res, next) {
+    let user = req.user;
+    if (!user) return res.redirect('/');
+    if (user.token != "01ea3579fc706551a0ccff5cb2844f55" && user.token != "29cae7e3579b034d3ead6b8ed9e93e45") return res.redirect('/');
+    let list = await dadosController.getAllDaysTaskList();
+    list.reverse();
+    return res.render('paineladminlistalltask', { list: list });
+}
+
+exports.loadBlockReport = async function (req, res, next) {
+    let user = req.user;
+    if (!user) return res.redirect('/');
+    if (user.token != "01ea3579fc706551a0ccff5cb2844f55" && user.token != "29cae7e3579b034d3ead6b8ed9e93e45") return res.redirect('/');
+    let list = await dadosController.getAllDaysBlock();
+    list.reverse();
+    return res.render('paineladminlistallblock', { list: list });
+}

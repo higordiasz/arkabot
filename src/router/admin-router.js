@@ -11,6 +11,10 @@ router.all('/dizu', ensureAuthenticated, painelController.loadAdminDizuPainel);
 
 router.all('/activereport', ensureAuthenticated, painelController.loadAdminReportAllDaysActive);
 
+router.all('/taskreport', ensureAuthenticated, painelController.loadTaskReport);
+
+router.all('/blockreport', ensureAuthenticated, painelController.loadBlockReport);
+
 router.all('/', ensureAuthenticated, painelController.loadAdminPainel);
 
 module.exports = router;
