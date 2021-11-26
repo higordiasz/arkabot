@@ -4,6 +4,7 @@ const Afiliado = mongoose.model('Afiliado');
 const CadAfiliado = mongoose.model('CadAfiliado');
 const VendAfiliado = mongoose.model('VendAfiliado');
 const PagAfiliado = mongoose.model('PagAfiliado');
+const UserController = require('../Conta/Controller');
 const md5 = require('md5');
 const moment = require('moment');
 
@@ -330,8 +331,29 @@ exports.getReceitAfiliadosByCode = async function () {
 
 }
 
-exports.addVendAfiliados = async function () {
-
+exports.addVendAfiliados = async function (token, value) {
+    let user = await UserController.findByToken(token);
+    if (user != null) {
+        let cad = await CadAfiliado.findOne(c => c.token_cadastrado == token)
+        if (cad != null) {
+            let tokenAfiliado = cad.token_afiliado;
+            let afiliado = await Afiliado.findOne(a => a.token == tokenAfiliado);
+            if (afiliado != null) {
+                let hoje = moment(new Date(), "DD/MM/YYYY").format("DD/MM/YYYY").toString();
+                var receita = value * 0.07;
+                afiliado.receita += receita;
+                var vendAfiliado = new VendAfiliado({
+                    token_afiliado: tokenAfiliado,
+                    token_cadastrado: user.token,
+                    valor: valor,
+                    receita: receita,
+                    data: hoje
+                });
+                await afiliado.save();
+                await vendAfiliado.save();
+            }
+        }
+    }
 }
 
 exports.addPagAfiliado = async function () {
