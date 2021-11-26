@@ -62,7 +62,7 @@ exports.loadGlobais = async function (req, res, next) {
 }
 
 exports.loadAdquirir = async function (req, res, next) {
-    return res.render('adquirirtemp', { message: "" });
+    return res.render('adquirir', { message: "" });
 }
 
 exports.loadAdminPainel = async function (req, res, next) {
