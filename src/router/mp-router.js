@@ -64,6 +64,8 @@ router.get('/comprar-instagram', ensureAuthenticated, async (req, res, next) => 
 
 router.all('/ret-insta', ensureAuthenticated, async (req, res, next) => {
     try {
+        console.log('to aqui');
+        console.log(req.query);
         let values = [2.50, 3, 5, 35, 45, 72];
         if (!req.query.payment_id) return res.render('checkouterr', { user: req.user, erro: "Não foi possivel carregar o pagamento do MercadoPago" });
         let payment = await mercadopago.payment.findById(req.query.payment_id);
