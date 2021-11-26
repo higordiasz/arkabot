@@ -76,7 +76,7 @@ router.all('/ret-insta', ensureAuthenticated, async (req, res, next) => {
         if (!values.includes(payment.response.transaction_amount)) return res.render('checkouterr', { user: req.user, erro: "Valor de transação errado" });
         if (payment.response.status != "approved") return res.render('checkouterr', { user: req.user, erro: "Seu pagamento não foi aprovado" });
         if (payment.response.order.id != req.query.merchant_order_id) return res.render('checkouterr', { user: req.user, erro: "Não foi possivel carregar o pagamento do MercadoPago" });
-        if (await Payment.checkPaymentID(req.query.payment_id)) return res.render('checkouterr', { user: req.user, erro: "Ja foram adicionados os pontos dessa compra" });
+        if (await payment.checkPaymentID(req.query.payment_id)) return res.render('checkouterr', { user: req.user, erro: "Ja foram adicionados os pontos dessa compra" });
         let user = req.user;
         if (!user) return res.render('checkouterr', { user: req.user, erro: "Não foi possivel localizar o usuario" });
         let dias = payment.response.transaction_amount == 2.50 || payment.response.transaction_amount == 3 || payment.response.transaction_amount == 5 ? 1 : payment.response.transaction_amount == 35 || payment.response.transaction_amount == 45 ? 30 : payment.response.transaction_amount == 72 ? 70 : 1;
