@@ -4,6 +4,7 @@ const mercadopago = require('mercadopago');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 const Payment = require('../model/payments');
 const apiController = require('../controller/apiController');
+const afiliadoController = require('../model/Afiliados/Controller');
 
 router.get('/comprar-instagram', ensureAuthenticated, async (req, res, next) => {
     let query = req.query;
@@ -87,6 +88,7 @@ router.all('/ret-insta', ensureAuthenticated, async (req, res, next) => {
         };
         let res2 = await apiController.addLicenceSite(json);
         if (res2) {
+            afiliadoController.addVendAfiliados();
             return res.render('checkoutapr', { user: req.user });
         } else {
             return res.render('checkouterr', { user: req.user, erro: "Não foi possiel adicionar sua licença, entre em contato com o suporte." });
