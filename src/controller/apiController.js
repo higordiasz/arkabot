@@ -35,7 +35,7 @@ exports.loginBot = async function (req, res, next) {
     if (!json.password) return res.status(200).send({ status: 0, erro: "Informe a senha de acesso ao sistema", data: [] });
     let conta = await contaController.loginAccount(json.email, json.password);
     if (!conta) return res.status(200).send({ status: 0, erro: "Email ou senha incorreto", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(conta.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(conta.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     dadosController.addAtivo(conta.token);
     return res.status(200).send({ status: 1, erro: "", data: [conta] });
 }
@@ -45,7 +45,7 @@ exports.checkToken = async function (req, res, next) {
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] })
     let user = await contaController.findByToken(json.token);
     if (!user) return res.status(200).send({ statgus: 0, erro: "Informe o token de acesso ao sistema", data: [] })
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     return res.status(200).send({ status: 1, erro: "", data: [] });
 }
 
@@ -69,7 +69,7 @@ exports.createConta = async function (req, res, next) {
     let json = req.body;
     if (!json) return res.status(200).send({ status: 0, erro: "Envie os dados para realizar a requisição", data: [] });
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Token invalido", data: [] });
     if (!json.username) return res.status(200).send({ status: 0, erro: "Informe o username da conta", data: [] });
@@ -98,7 +98,7 @@ exports.alterarConta = async function (req, res, next) {
     let json = req.body;
     if (!json) return res.status(200).send({ status: 0, erro: "Envie os dados para realizar a requisição", data: [] });
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Token invalido", data: [] });
     if (!json.username) return res.status(200).send({ status: 0, erro: "Informe o username da conta", data: [] });
@@ -114,7 +114,7 @@ exports.deletarConta = async function (req, res, next) {
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Token invalido", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     if (!json.username) return res.status(200).send({ status: 0, erro: "Informe o username da conta", data: [] });
     let ret = await instagramController.removerConta(conta.token, json.username);
     if (ret) return res.status(200).send({ status: 1, erro: "", data: [] });
@@ -127,7 +127,7 @@ exports.getAllContas = async function (req, res, next) {
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let ret = await instagramController.getAllContas(conta.token);
     if (!ret) return res.status(200).send({ status: 1, erro: "", data: [] });
     return res.status(200).send({ status: 1, erro: "", data: ret })
@@ -138,7 +138,7 @@ exports.getContaByUsername = async function (req, res, next) {
     if (!json) return res.status(200).send({ status: 0, erro: "Envie os dados para realizar a requisição", data: [] });
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
     if (!json.username) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "", data: [] });
     let ret = await instagramController.getContaByUsername(conta.token, json.username);
@@ -245,7 +245,7 @@ exports.getAllGroups = async function (req, res, next) {
     let json = req.body;
     if (!json) return res.status(200).send({ status: 0, erro: "Envie os dados para realizar a requisição", data: [] });
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Usuario n encontrado", data: [] });
     let grupo = await grupoController.getAllGrupo(conta.token);
@@ -258,7 +258,7 @@ exports.getGroup = async function (req, res, next) {
     if (!json) return res.status(200).send({ status: 0, erro: "Envie os dados para realizar a requisição", data: [] });
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
     if (!json.nome) return res.status(200).send({ status: 0, erro: "Informe o nome do grupo", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Usuario n encontrado", data: [] });
     let grupo = await grupoController.getGrupoByName(conta.token, json.nome);
@@ -273,7 +273,7 @@ exports.alterGroup = async function (req, res, next) {
     if (!json.nome) return res.status(200).send({ status: 0, erro: "Informe o nome do grupo", data: [] });
     if (!json.global) return res.status(200).send({ status: 0, erro: "Informe o nome do Global", data: [] });
     if (!json.contas) return res.status(200).send({ status: 0, erro: "Informe as contas", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Usuario n encontrado", data: [] });
     let grupo2 = {
@@ -291,7 +291,7 @@ exports.deleteGroup = async function (req, res, next) {
     if (!json) return res.status(200).send({ status: 0, erro: "Envie os dados para realizar a requisição", data: [] });
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
     if (!json.nome) return res.status(200).send({ status: 0, erro: "Informe o nome do grupo", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Usuario n encontrado", data: [] });
     let grupo = await grupoController.removerGrupo(conta.token, json.nome);
@@ -306,7 +306,7 @@ exports.createGroup = async function (req, res, next) {
     if (!json.nome) return res.status(200).send({ status: 0, erro: "Informe o nome do grupo", data: [] });
     if (!json.global) return res.status(200).send({ status: 0, erro: "Informe o nome do Global", data: [] });
     if (!json.contas) return res.status(200).send({ status: 0, erro: "Informe as contas", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Usuario n encontrado", data: [] });
     let grupo2 = {
@@ -325,7 +325,7 @@ exports.getAllGlobal = async function (req, res, next) {
     let json = req.body;
     if (!json) return res.status(200).send({ status: 0, erro: "Envie os dados para realizar a requisição", data: [] });
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Usuario n encontrado", data: [] });
     let global = await globalController.getAllGlobal(conta.token);
@@ -338,7 +338,7 @@ exports.getGlobal = async function (req, res, next) {
     if (!json) return res.status(200).send({ status: 0, erro: "Envie os dados para realizar a requisição", data: [] });
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
     if (!json.nome) return res.status(200).send({ status: 0, erro: "Informe o nome do global", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Usuario n encontrado", data: [] });
     let global = await globalController.getGlobalByName(conta.token, json.nome);
@@ -351,7 +351,7 @@ exports.deleteGlobal = async function (req, res, next) {
     if (!json) return res.status(200).send({ status: 0, erro: "Envie os dados para realizar a requisição", data: [] });
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
     if (!json.nome) return res.status(200).send({ status: 0, erro: "Informe o nome do global", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Usuario n encontrado", data: [] });
     let global = await globalController.removeGlobalByName(conta.token, json.nome);
@@ -376,7 +376,7 @@ exports.AlterGlobal = async function (req, res, next) {
     if (json.trocar == null) return res.status(200).send({ status: 0, erro: "Erro Trocar", data: [] });
     if (json.perfil == null) return res.status(200).send({ status: 0, erro: "Erro Perfil", data: [] });
     if (json.barra == null) return res.status(200).send({ status: 0, erro: "Erro Pesquisa", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Usuario n encontrado", data: [] });
     let g = {
@@ -417,7 +417,7 @@ exports.createGlobal = async function (req, res, next) {
     if (json.trocar == null) return res.status(200).send({ status: 0, erro: "Erro Trocar", data: [] });
     if (json.perfil == null) return res.status(200).send({ status: 0, erro: "Erro Perfil", data: [] });
     if (json.barra == null) return res.status(200).send({ status: 0, erro: "Erro Barra", data: [] });
-    //if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Usuario n encontrado", data: [] });
     let g = {
@@ -505,7 +505,7 @@ exports.validateLicence = async function (req, res, next) {
     let json = req.body;
     if (!json) return res.status(200).send({ status: 0, erro: "Erro", data: [] });
     if (!json.token) return res.status(200).send({ status: 0, erro: "", data: [] });
-    //if (await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 1, erro: "", data: [] });
+    if (await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 1, erro: "", data: [] });
     return res.status(200).send({ status: 1, erro: "", data: [] });
 }
 
