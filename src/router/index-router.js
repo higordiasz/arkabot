@@ -22,7 +22,7 @@ router.all('/', (req, res, next) => {
     res.render('cronometro', {seconds: seconds});
 })
 */
-router.all('/', (req, res, next) => {
+router.all('/', ensureAuthenticated, (req, res, next) => {
     res.render('index', {})
 })
 
