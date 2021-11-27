@@ -332,40 +332,27 @@ exports.getReceitAfiliadosByCode = async function () {
 }
 
 exports.addVendAfiliados = async function (token, value) {
-    console.log(token);
-    console.log(value);
-    console.log(1);
     try {
         let user = await UserController.findByToken(token);
-        console.log(2);
         if (user != null) {
-            console.log(3);
             let cad = await CadAfiliado.findOne({ token_cadastrado: token })
-            console.log(4);
             if (cad != null) {
-                console.log(5);
                 let tokenAfiliado = cad.token_afiliado;
-                console.log(6);
                 let afiliado = await Afiliado.findOne({ token: tokenAfiliado });
-                console.log(7);
                 if (afiliado != null) {
-                    console.log(8);
                     let hoje = moment(new Date(), "DD/MM/YYYY").format("DD/MM/YYYY").toString();
                     var receita = value * 0.07;
                     console.log(receita);
                     afiliado.receita += receita;
-                    console.log(9);
                     var vendAfiliado = new VendAfiliado({
                         token_afiliado: tokenAfiliado,
                         token_cadastrado: user.token,
-                        valor: valor,
+                        valor: value,
                         receita: receita,
                         data: hoje
                     });
                     await afiliado.save();
-                    console.log(10);
                     await vendAfiliado.save();
-                    console.log(11);
                 }
             }
         }
