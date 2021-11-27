@@ -95,8 +95,8 @@ router.all('/ret-insta', ensureAuthenticated, async (req, res, next) => {
         };
         let res2 = await apiController.addLicenceSite(json);
         if (res2) {
-            afiliadoController.addVendAfiliados(user.token);
-            Payment.adicionarPayment(payment, req.query.payment_id, user.token);
+            await afiliadoController.addVendAfiliados(user.token, payment.response.transaction_amount);
+            await Payment.adicionarPayment(payment, req.query.payment_id, user.token);
             return res.render('checkoutapr', { user: req.user });
         } else {
             return res.render('checkouterr', { user: req.user, erro: "Não foi possiel adicionar sua licença, entre em contato com o suporte." });
