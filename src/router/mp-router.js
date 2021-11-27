@@ -90,7 +90,7 @@ router.all('/ret-insta', ensureAuthenticated, async (req, res, next) => {
         };
         let res2 = await apiController.addLicenceSite(json);
         if (res2) {
-            afiliadoController.addVendAfiliados();
+            afiliadoController.addVendAfiliados(user.token);
             Payment.adicionarPayment(payment, req.query.payment_id, user.token);
             return res.render('checkoutapr', { user: req.user });
         } else {
