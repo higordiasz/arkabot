@@ -334,10 +334,10 @@ exports.getReceitAfiliadosByCode = async function () {
 exports.addVendAfiliados = async function (token, value) {
     let user = await UserController.findByToken(token);
     if (user != null) {
-        let cad = await CadAfiliado.findOne(c => c.token_cadastrado == token)
+        let cad = await CadAfiliado.findOne({token_cadastrado: token})
         if (cad != null) {
             let tokenAfiliado = cad.token_afiliado;
-            let afiliado = await Afiliado.findOne(a => a.token == tokenAfiliado);
+            let afiliado = await Afiliado.findOne({token: tokenAfiliado});
             if (afiliado != null) {
                 let hoje = moment(new Date(), "DD/MM/YYYY").format("DD/MM/YYYY").toString();
                 var receita = value * 0.07;
