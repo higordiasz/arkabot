@@ -1,6 +1,7 @@
 const contaController = require('../model/Conta/Controller');
 const instagramController = require('../model/Instagram/Controller');
 const dadosController = require('../model/Dados/Controller');
+const licenseController = require('../model/LicenseInsta/Controller');
 const crypto = require('crypto');
 
 //Controle de usuarios
