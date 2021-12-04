@@ -74,11 +74,13 @@ exports.createConta = async function (req, res, next) {
     if (!conta) return res.status(200).send({ status: 0, erro: "Token invalido", data: [] });
     if (!json.username) return res.status(200).send({ status: 0, erro: "Informe o username da conta", data: [] });
     if (!json.password) return res.status(200).send({ status: 0, erro: "Informe a senha da conta", data: [] });
+    if (!json.categoria) return res.status(200).send({ status: 0, erro: "Informe a categoria da conta", data: [] });
     let listMobile = ["lg-optimus-g", "galaxy6", "galaxy-s5-gold", "lg-optimus-f6", "nexus-5x", "nexus5", "galaxy-s7-edge",
         "galaxy-s4", "nexus-6p", "note3", "nexus4-chroma", "xiaomi-mi-4w"];
     let insta = {
         "username": json.username,
         "password": json.password,
+        "categoria": json.categoria,
         "mobile": listMobile[Math.floor(Math.random() * (listMobile.length - 1))],
         "block": false,
         "challenge": false,
@@ -129,6 +131,19 @@ exports.getAllContas = async function (req, res, next) {
     if (!conta) return res.status(200).send({ status: 0, erro: "", data: [] });
     if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let ret = await instagramController.getAllContas(conta.token);
+    if (!ret) return res.status(200).send({ status: 1, erro: "", data: [] });
+    return res.status(200).send({ status: 1, erro: "", data: ret })
+}
+
+exports.getAllContasByCategoria = async function (req, res, next) {
+    let json = req.body;
+    if (!json) return res.status(200).send({ status: 0, erro: "Envie os dados para realizar a requisição", data: [] });
+    if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
+    if (!json.categoria) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] })
+    let conta = await contaController.findByToken(json.token);
+    if (!conta) return res.status(200).send({ status: 0, erro: "", data: [] });
+    if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    let ret = await instagramController.getAllContasByCategoria(conta.token, json.categoria);
     if (!ret) return res.status(200).send({ status: 1, erro: "", data: [] });
     return res.status(200).send({ status: 1, erro: "", data: ret })
 }
@@ -522,18 +537,18 @@ exports.getUserAgentFromSeed = async function (req, res, next) {
 
 exports.adicionarUA = async function (req, res, next) {
     let json = req.body;
-    if (!json) return res.status(200).sed({message:"ok"});
-    if (!json.password) return res.status(200).send({message:"ok"})
-    if (!json.ua) return res.status(200).send({message:"ok"})
-    if (json.password != "senhaparaadicionarnovauanoarkinha") return res.status(200).send({message:"ok"});
-    if (!json.type) return res.status(200).send({message:"ok"})
-    if(json.type == 1) {
+    if (!json) return res.status(200).sed({ message: "ok" });
+    if (!json.password) return res.status(200).send({ message: "ok" })
+    if (!json.ua) return res.status(200).send({ message: "ok" })
+    if (json.password != "senhaparaadicionarnovauanoarkinha") return res.status(200).send({ message: "ok" });
+    if (!json.type) return res.status(200).send({ message: "ok" })
+    if (json.type == 1) {
         await uaController.adicionarMobileUA(json.ua);
     }
-    if(json.type == 2) {
+    if (json.type == 2) {
         await uaController.adicionarNavegadorUA(json.ua);
     }
-    return res.status(200).send({message:"sucesso"});
+    return res.status(200).send({ message: "sucesso" });
 }
 
 exports.getGis = async function (req, res, next) {
@@ -553,5 +568,5 @@ exports.setDownloadLink = async function (req, res, next) {
     if (!json.link && !query.link) return res.redirect("/");
     let link = json.link != null ? json.link : query.link;
     await downloadController.setDownloadLink(link);
-    return res.status(200).send({message: "ok"})
+    return res.status(200).send({ message: "ok" })
 }

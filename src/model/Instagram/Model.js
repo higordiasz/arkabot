@@ -10,6 +10,10 @@ const InstagramSchema = new Schema({
         type: String,
         required: true
     },
+    categoria: {
+        type: String,
+        required: false
+    },
     password: {
         type: String,
         required: true

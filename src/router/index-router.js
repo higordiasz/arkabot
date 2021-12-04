@@ -64,6 +64,10 @@ router.get('/cadastro', (req, res, next) => {
     }
 })
 
+router.all('/deletar', ensureAuthenticated, (req, res, next) => res.render('deleteall', { message: '' }));
+
+router.all('/deletar/yes', ensureAuthenticated, painelController.deleteAll);
+
 router.all('/painel', ensureAuthenticated, painelController.loadPainel)
 
 router.all('/instagram', ensureAuthenticated, painelController.loadInstagram)

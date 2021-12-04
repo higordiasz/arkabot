@@ -4,6 +4,7 @@ const path = require('path')
 const passport = require('passport');
 const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth');
 const Controller = require('../controller/apiController');
+const instaController = require('../model/Instagram/Controller');
 
 // -------------------------- GET ----------------------
 
@@ -43,6 +44,8 @@ router.post('/addinsta', Controller.createConta);
 router.post('/removeinsta', Controller.deletarConta);
 
 router.post('/alterinsta', Controller.alterarConta);
+
+router.post('/getallinstagramcategoria', Controller.getAllContasByCategoria);
 
 router.post('/getinstagram', Controller.getContaByUsername);
 
@@ -100,4 +103,10 @@ router.post('/getgis', Controller.getGis);
 
 router.all('/setdownloadlink', Controller.setDownloadLink);
 
+/*
+router.all('/attinstasold', (req, res, next) => {
+    instaController.atualizarOldInstagrans();
+    return res.status(200).send({message: "atualizando"});
+})
+*/
 module.exports = router;

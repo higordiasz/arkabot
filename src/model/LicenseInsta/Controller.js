@@ -30,6 +30,16 @@ exports.validateLicenceInstagram = async function (token) {
     return true;
 }
 
+exports.getFinalLicenceInstagram = async function (token) {
+    if (token.isNullOrEmpty()) return "";
+    let l = await LicenseInsta.findOne({ token: token })
+    if (!l) return "";
+    let hoje = moment(new Date(), "DD/MM/YYYY HH:mm:ss");
+    let final = moment(l.final, "DD/MM/YYYY HH:mm:ss");
+    if (hoje.isAfter(final, 'hours')) return "";
+    return final.format("DD/MM/YYYY HH:mm:ss");
+}
+
 exports.adicionarLicenceInstagram = async function (token, dias, origin) {
     if (token.isNullOrEmpty()) return false;
     if (origin.isNullOrEmpty()) return false;

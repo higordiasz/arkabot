@@ -55,10 +55,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="../grupos">
+          <a class="nav-link " href="../grupos">
             <div
               class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ico-branco fa fa-user-friends opacity-10" aria-hidden="true"></i>
+              <i class="ico-roxo fa fa-user-friends opacity-10" aria-hidden="true"></i>
             </div>
             <span class="nav-link-text ms-1">Grupos</span>
           </a>
@@ -73,7 +73,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../adquirir">
+          <a class="nav-link " href="../adquirir">
             <div
               class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ico-roxo fa fa-credit-card opacity-10" aria-hidden="true"></i>
@@ -82,23 +82,23 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="../download">
-            <div
-              class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ico-roxo fa fa-cloud-download-alt opacity-10" aria-hidden="true"></i>
-            </div>
-            <span class="nav-link-text ms-1">Download</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../deletar">
-            <div
-              class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ico-roxo fa fa-trash-alt opacity-10" aria-hidden="true"></i>
-            </div>
-            <span class="nav-link-text ms-1">Excluir</span>
-          </a>
-        </li>
+            <a class="nav-link" href="../download">
+              <div
+                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ico-roxo fa fa-cloud-download-alt opacity-10" aria-hidden="true"></i>
+              </div>
+              <span class="nav-link-text ms-1">Download</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="../deletar">
+              <div
+                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ico-branco fa fa-trash-alt opacity-10" aria-hidden="true"></i>
+              </div>
+              <span class="nav-link-text ms-1">Excluir</span>
+            </a>
+          </li>
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Contato</h6>
         </li>
@@ -125,10 +125,11 @@
   </aside>
   <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
     <!-- Navbar -->
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+      navbar-scroll="true">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
-          <h6 class="font-weight-bolder mb-0">Grupos</h6>
+          <h6 class="font-weight-bolder mb-0">Apagar Registros</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -156,81 +157,67 @@
     <!-- End Navbar -->
     <div class="container-fluid py-4">
       <div class="row">
-        <div class="col-12">
-          <div class="card mb-4">
-            <div class="card-header pb-0">
-              <h6>Grupos Cadastrados</h6>
-            </div>
-            <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nome</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Global</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Qtd Contas</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% if (Grupos != null) { %>
-                      <% if (Grupos.length > 0) { %>
-                        <% for(let i = 0; i < Grupos.length; i++) { %>
-                          <tr>
-                            <td>
-                              <div class="d-flex px-2 py-1">
-                                <div class="d-flex flex-column justify-content-center">
-                                  <h6 class="mb-0 text-sm">
-                                    <%- Grupos[i].nome %>
-                                  </h6>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex px-2 py-1">
-                                <div class="d-flex flex-column justify-content-center">
-                                  <h6 class="mb-0 text-sm">
-                                    <%- Grupos[i].global %>
-                                  </h6>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex px-2 py-1">
-                                <div class="d-flex flex-column justify-content-center">
-                                  <h6 class="mb-0 text-sm">
-                                    <%- Grupos[i].contas.length %>
-                                  </h6>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        <% } %>
-                      <% } %>
-                    <% } %>
-                  </tbody>
-                </table>
+        <div class="col-md-12">
+          <div class="card">
+              <div class="card-header mx-4 p-3 text-center">
+                <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
+                  <i class="fa fa-trash-alt opacity-10" aria-hidden="true"></i>
+                </div>
               </div>
+              <div class="card-body pt-0 p-3 text-center">
+                <h6 class="text-center mb-0">Apagar Registro</h6>
+                <span class="text-xs">Cuidado, ao continuar ira apagar todos seus dados do nosso servidor!</span>
+                <hr class="horizontal dark my-3">
+                <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#modal-notification">
+                    EXCLUIR ARQUIVOS
+                  </button>
+                  <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+                    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h6 class="modal-title" id="modal-title-notification">Excluir todos os dados!</h6>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="py-3 text-center">
+                            <i class="ni ni-bell-55 ni-3x"></i>
+                            <h4 class="text-gradient text-danger mt-4">Ao prosseguir esteja ciente!</h4>
+                            <p>Iremos excluir todos os dados da sua conta e zerar a mesma, apenas sua licença, caso tenha, sera mantida.</p>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                            <form method="get" action="../deletar/yes">
+                                <button type="submit" class="btn bg-gradient-danger btn-block mb-3">EXCLUIR</button>
+                            </form>
+                          <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer pt-3  ">
+      <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6 mb-lg-0 mb-4">
+            <div class="copyright text-center text-sm text-muted text-lg-start">
+              ©
+              <script>
+                document.write(new Date().getFullYear())
+              </script>,
+              Arka Group.
             </div>
           </div>
         </div>
       </div>
-      <footer class="footer pt-3  ">
-        <div class="container-fluid">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 mb-lg-0 mb-4">
-              <div class="copyright text-center text-sm text-muted text-lg-start">
-                © <script>
-                  document.write(new Date().getFullYear())
-                </script>,
-                Arka Group.
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+    </footer>
     </div>
   </main>
-  
+
   <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
@@ -253,7 +240,7 @@
           backgroundColor: "#fff",
           data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
           maxBarThickness: 6
-        }, ],
+        },],
       },
       options: {
         responsive: true,
@@ -324,30 +311,30 @@
       data: {
         labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [{
-            label: "Mobile apps",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#cb0c9f",
-            borderWidth: 3,
-            backgroundColor: gradientStroke1,
-            fill: true,
-            data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-            maxBarThickness: 6
+          label: "Mobile apps",
+          tension: 0.4,
+          borderWidth: 0,
+          pointRadius: 0,
+          borderColor: "#cb0c9f",
+          borderWidth: 3,
+          backgroundColor: gradientStroke1,
+          fill: true,
+          data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+          maxBarThickness: 6
 
-          },
-          {
-            label: "Websites",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#3A416F",
-            borderWidth: 3,
-            backgroundColor: gradientStroke2,
-            fill: true,
-            data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-            maxBarThickness: 6
-          },
+        },
+        {
+          label: "Websites",
+          tension: 0.4,
+          borderWidth: 0,
+          pointRadius: 0,
+          borderColor: "#3A416F",
+          borderWidth: 3,
+          backgroundColor: gradientStroke2,
+          fill: true,
+          data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+          maxBarThickness: 6
+        },
         ],
       },
       options: {

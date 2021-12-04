@@ -33,15 +33,40 @@ exports.loadPainel = async function (req, res, next) {
                 c.push(compras[i]);
             }
         }
-        let instaLicence = "Adquirida.";
-        if (!await licenseController.validateLicenceInstagram(user.token))
-            instaLicence = "Não adquirido.";
+        let instaLicence = "Não adquirido.";
+        if (await licenseController.validateLicenceInstagram(user.token)) {
+            instaLicence = "Adquirida. <br /> Final: " + await licenseController.getFinalLicenceInstagram(user.token);
+        }
         return res.render('painel', { Insta: instagram != null ? instagram.length : 0, Grupos: grupos != null ? grupos.length : 0, Globais: global != null ? global.length : 0, Compras: c, instaLicence: instaLicence });
     } catch (err) {
         console.log(err)
         return res.render('login', { message: err.message });
     }
 };
+
+exports.deleteAll = async function (req, res, next) {
+    let user = req.user;
+    if (!user) return res.redirect('../login');
+    let glob = await Global.find({ token: user.token });
+    let ins = await Instagram.find({ token: user.token });
+    let grup = await Grupo.find({ token: user.token });
+    if (glob.length > 0) {
+        glob.forEach(g => {
+            g.delete();
+        })
+    }
+    if (ins.length > 0) {
+        ins.forEach(i => {
+            i.delete();
+        })
+    }
+    if (grup.length > 0) {
+        grup.forEach(g => {
+            g.delete();
+        })
+    }
+    return res.redirect('../deletar');
+}
 
 exports.loadInstagram = async function (req, res, next) {
     let user = req.user;

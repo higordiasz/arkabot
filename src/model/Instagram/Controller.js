@@ -31,6 +31,7 @@ exports.adicionarConta = async function (token, conta) {
     i = new Instagram({
         username: username,
         password: conta.password,
+        categoria: conta.categoria,
         mobile: conta.mobile,
         block: conta.block,
         challenge: conta.challenge,
@@ -93,6 +94,22 @@ exports.getContaByUsername = async function (token, username2) {
     return ret;
 }
 
+exports.getAllContasByCategoria = async function (token, categoria) {
+    if (token.isNullOrEmpty()) return [];
+    let contas = await Instagram.find({ categoria: categoria });
+    if (!contas) return [];
+    if (contas.length < 1) return [];
+    let ret = [];
+    contas.forEach(i => {
+        let aux = i;
+        delete aux._id;
+        delete aux.__v;
+        delete aux.token;
+        ret.push(aux);
+    })
+    return ret;
+}
+
 exports.getAllContas = async function (token) {
     if (token.isNullOrEmpty()) return null;
     let contas = await Instagram.find({ token: token })
@@ -113,7 +130,7 @@ exports.adicionarBlock = async function (token, username2) {
     if (username2.isNullOrEmpty()) return false;
     let username = username2.ReplaceAll("-", "").ReplaceAll(" ", "").ReplaceAll("@", "").ReplaceAll(":", "").ReplaceAll(";", "").toLowerCase();
     if (token.isNullOrEmpty()) return false;
-    let i = await Instagram.findOne({token: token, username: username});
+    let i = await Instagram.findOne({ token: token, username: username });
     if (!i) return false;
     i.block = true;
     await i.save();
@@ -124,7 +141,7 @@ exports.removerBlock = async function (token, username2) {
     if (username2.isNullOrEmpty()) return false;
     let username = username2.ReplaceAll("-", "").ReplaceAll(" ", "").ReplaceAll("@", "").ReplaceAll(":", "").ReplaceAll(";", "").toLowerCase();
     if (token.isNullOrEmpty()) return false;
-    let i = await Instagram.findOne({token: token, username: username});
+    let i = await Instagram.findOne({ token: token, username: username });
     if (!i) return false;
     i.block = false;
     await i.save();
@@ -135,7 +152,7 @@ exports.adicionarChallenge = async function (token, username2) {
     if (username2.isNullOrEmpty()) return false;
     let username = username2.ReplaceAll("-", "").ReplaceAll(" ", "").ReplaceAll("@", "").ReplaceAll(":", "").ReplaceAll(";", "").toLowerCase();
     if (token.isNullOrEmpty()) return false;
-    let i = await Instagram.findOne({token: token, username: username});
+    let i = await Instagram.findOne({ token: token, username: username });
     if (!i) return false;
     i.challenge = true;
     await i.save();
@@ -146,7 +163,7 @@ exports.removerChallenge = async function (token, username2) {
     if (username2.isNullOrEmpty()) return false;
     let username = username2.ReplaceAll("-", "").ReplaceAll(" ", "").ReplaceAll("@", "").ReplaceAll(":", "").ReplaceAll(";", "").toLowerCase();
     if (token.isNullOrEmpty()) return false;
-    let i = await Instagram.findOne({token: token, username: username});
+    let i = await Instagram.findOne({ token: token, username: username });
     if (!i) return false;
     i.challenge = false;
     await i.save();
@@ -157,7 +174,7 @@ exports.adicionarIncorrect = async function (token, username2) {
     if (username2.isNullOrEmpty()) return false;
     let username = username2.ReplaceAll("-", "").ReplaceAll(" ", "").ReplaceAll("@", "").ReplaceAll(":", "").ReplaceAll(";", "").toLowerCase();
     if (token.isNullOrEmpty()) return false;
-    let i = await Instagram.findOne({token: token, username: username});
+    let i = await Instagram.findOne({ token: token, username: username });
     if (!i) return false;
     i.incorrect = true;
     await i.save();
@@ -168,7 +185,7 @@ exports.removerIncorrect = async function (token, username2) {
     if (username2.isNullOrEmpty()) return false;
     let username = username2.ReplaceAll("-", "").ReplaceAll(" ", "").ReplaceAll("@", "").ReplaceAll(":", "").ReplaceAll(";", "").toLowerCase();
     if (token.isNullOrEmpty()) return false;
-    let i = await Instagram.findOne({token: token, username: username});
+    let i = await Instagram.findOne({ token: token, username: username });
     if (!i) return false;
     i.incorrect = false;
     await i.save();
@@ -179,7 +196,7 @@ exports.adicionarSeguir = async function (token, username2) {
     if (username2.isNullOrEmpty()) return false;
     let username = username2.ReplaceAll("-", "").ReplaceAll(" ", "").ReplaceAll("@", "").ReplaceAll(":", "").ReplaceAll(";", "").toLowerCase();
     if (token.isNullOrEmpty()) return false;
-    let i = await Instagram.findOne({token: token, username: username});
+    let i = await Instagram.findOne({ token: token, username: username });
     if (!i) return false;
     i.seguir = i.seguir + 1;
     await i.save();
@@ -190,9 +207,32 @@ exports.adicionarCurtir = async function (token, username2) {
     if (username2.isNullOrEmpty()) return false;
     let username = username2.ReplaceAll("-", "").ReplaceAll(" ", "").ReplaceAll("@", "").ReplaceAll(":", "").ReplaceAll(";", "").toLowerCase();
     if (token.isNullOrEmpty()) return false;
-    let i = await Instagram.findOne({token: token, username: username});
+    let i = await Instagram.findOne({ token: token, username: username });
     if (!i) return false;
     i.curtir = i.curtir + 1;
     await i.save();
     return true;
+}
+
+exports.atualizarOldInstagrans = async function () {
+    try {
+        var instas = await Instagram.find();
+        let j = 1;
+        console.log(instas.length);
+        instas.forEach(async (i) => {
+            console.log(j + ` - Username: ${i.username}`)
+            let aux = i;
+            delete aux._id;
+            delete aux.__v;
+            aux.categoria = "old";
+            let n = new Instagram(aux);
+            await n.save();
+            await i.delete();
+            j++;
+        })
+    } catch (err) {
+        console.log(err);
+    }
+    console.log("concluido!!");
+    return;
 }
