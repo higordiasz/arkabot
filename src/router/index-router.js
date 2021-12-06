@@ -86,6 +86,8 @@ router.all('/email', ensureAuthenticated, (req, res, next) => res.render('suport
 
 router.all('/download', ensureAuthenticated, async (req, res, next) => res.render('download', { message: "", link: await downloadController.getDownloadLink() }))
 
+router.all('/tutorial', ensureAuthenticated, (req, res, next) => res.render('tutorial', {message: ""}));
+
 //POST
 
 router.post('/login', forwardAuthenticated, (req, res, next) => {
