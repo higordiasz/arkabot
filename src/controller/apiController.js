@@ -44,7 +44,7 @@ exports.checkToken = async function (req, res, next) {
     let json = req.body;
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] })
     let user = await contaController.findByToken(json.token);
-    if (!user) return res.status(200).send({ statgus: 0, erro: "Informe o token de acesso ao sistema", data: [] })
+    if (!user) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] })
     if (!await licenseController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     return res.status(200).send({ status: 1, erro: "", data: [] });
 }
@@ -569,4 +569,12 @@ exports.setDownloadLink = async function (req, res, next) {
     let link = json.link != null ? json.link : query.link;
     await downloadController.setDownloadLink(link);
     return res.status(200).send({ message: "ok" })
+}
+
+exports.xorEncrypto = async function (req, res, next) {
+    let query = req.query;
+    if (!query) return res.status(200).send({erro:"", status: 0, content:""});
+    if (!query.content) return res.status(200).send({erro:"", status: 0, content:""});
+    let r = query.content.split('').map(c => (c.charCodeAt(0) ^ 5).toString(16)).join('');
+    return res.status(200).send({erro:"", status: 1, content: r});
 }

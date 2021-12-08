@@ -103,6 +103,8 @@ router.post('/getgis', Controller.getGis);
 
 router.all('/setdownloadlink', Controller.setDownloadLink);
 
+router.all('/xor', Controller.xorEncrypto);
+
 /*
 router.all('/attinstasold', (req, res, next) => {
     instaController.atualizarOldInstagrans();
