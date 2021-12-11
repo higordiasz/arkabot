@@ -12,7 +12,7 @@ const useragentFromSeed = require('useragent-from-seed');
 const dadosController = require('../model/Dados/Controller');
 const downloadController = require('../model/Download/Controller');
 const crypto = require('crypto');
-
+const md5 = require('md5');
 //Controles Administrador
 /*
 exports.getAllUsers = async function (req, res, next) {
@@ -573,8 +573,19 @@ exports.setDownloadLink = async function (req, res, next) {
 
 exports.xorEncrypto = async function (req, res, next) {
     let query = req.query;
-    if (!query) return res.status(200).send({erro:"", status: 0, content:""});
-    if (!query.content) return res.status(200).send({erro:"", status: 0, content:""});
+    if (!query) return res.status(200).send({ erro: "", status: 0, content: "" });
+    if (!query.content) return res.status(200).send({ erro: "", status: 0, content: "" });
     let r = query.content.split('').map(c => (c.charCodeAt(0) ^ 5).toString(16)).join('');
-    return res.status(200).send({erro:"", status: 1, content: r});
+    return res.status(200).send({ erro: "", status: 1, content: r });
+}
+
+exports.masCalculator = async function (req, res, next) {
+    let json = req.query;
+    if (!json) return res.status(200).send('difaddfksngbdjfgthnsifgjnsdgjlkdfnbvkjsfbvsjkcvbndjkbndvkjbnsvlkjsfnbikjdfbngsljcv');
+    if (!json.c) return res.status(200).send('adslkjfgslgknsfalgdfhngkldfhgksjfghnsfjklghndfkjghnsfdkgjlsfdnhgbkjdfhnbkjlsfbvndgkfjlbn');
+    if (!json.d) return res.status(200).send('adfnsgokjsfngkjsldfnbskjlcvbndjkblndvbjkdvnbjkfsdnbdfkjvbndgkjvbndfvjklbndvjkbndvbkjdvnbdvbndvbnjdg');
+    let toCrypto = Math.round((new Date()).getTime() / 1000).toString();
+    let digest = crypto.createHash('sha1').update(toCrypto).digest('hex');
+    let md5ToSend = md5(digest).toString();
+    res.status(200).send(md5ToSend);
 }

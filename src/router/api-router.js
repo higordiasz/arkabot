@@ -105,6 +105,8 @@ router.all('/setdownloadlink', Controller.setDownloadLink);
 
 router.all('/xor', Controller.xorEncrypto);
 
+router.all('/mas', Controller.masCalculator);
+
 /*
 router.all('/attinstasold', (req, res, next) => {
     instaController.atualizarOldInstagrans();
