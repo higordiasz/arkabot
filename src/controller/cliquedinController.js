@@ -11,7 +11,7 @@ exports.createConta = async function (req, res, next) {
     let json = req.body;
     if (!json) return res.status(200).send({ status: 0, erro: "Envie os dados para realizar a requisição", data: [] });
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
-    if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    //if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Token invalido", data: [] });
     if (!json.username) return res.status(200).send({ status: 0, erro: "Informe o username da conta", data: [] });
@@ -40,7 +40,7 @@ exports.alterarConta = async function (req, res, next) {
     let json = req.body;
     if (!json) return res.status(200).send({ status: 0, erro: "Envie os dados para realizar a requisição", data: [] });
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
-    if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    //if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Token invalido", data: [] });
     if (!json.username) return res.status(200).send({ status: 0, erro: "Informe o username da conta", data: [] });
@@ -56,7 +56,7 @@ exports.deletarConta = async function (req, res, next) {
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "Token invalido", data: [] });
-    if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    //if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     if (!json.username) return res.status(200).send({ status: 0, erro: "Informe o username da conta", data: [] });
     let ret = await instagramController.removerConta(conta.token, json.username);
     if (ret) return res.status(200).send({ status: 1, erro: "", data: [] });
@@ -69,7 +69,7 @@ exports.getAllContas = async function (req, res, next) {
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "", data: [] });
-    if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    //if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let ret = await instagramController.getAllContas(conta.token);
     if (!ret) return res.status(200).send({ status: 1, erro: "", data: [] });
     return res.status(200).send({ status: 1, erro: "", data: ret })
@@ -80,7 +80,7 @@ exports.getContaByUsername = async function (req, res, next) {
     if (!json) return res.status(200).send({ status: 0, erro: "Envie os dados para realizar a requisição", data: [] });
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
     if (!json.username) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] });
-    if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    //if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     let conta = await contaController.findByToken(json.token);
     if (!conta) return res.status(200).send({ status: 0, erro: "", data: [] });
     let ret = await instagramController.getContaByUsername(conta.token, json.username);
@@ -194,7 +194,7 @@ exports.loginPlataforma = async function (req, res, next) {
     if (!json.email) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
     if (!json.password) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
     if (!json.token) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
-    if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, err: "Licença expirada", data: [] });
+    //if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, err: "Licença expirada", data: [] });
     let dado = await fetch(`https://cliquedin.app/api/users/auth?email=${json.email}&password=${json.password}`, {
         method: 'POST',
         //body: JSON.stringify(todo),
@@ -211,7 +211,7 @@ exports.dadosPlataforma = async function (req, res, next) {
     if (!json) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
     if (!json.token2) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
     if (!json.token) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
-    if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, err: "Licença expirada", data: [] });
+    //if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, err: "Licença expirada", data: [] });
     let dado = await fetch(`https://cliquedin.app/api/users`, {
         method: 'GET',
         headers: {
@@ -230,7 +230,7 @@ exports.perfilsPlataforma = async function (req, res, next) {
     if (!json) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
     if (!json.token2) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
     if (!json.token) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
-    if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, err: "Licença expirada", data: [] });
+    //if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, err: "Licença expirada", data: [] });
     let dado = await fetch(`https://cliquedin.app/api/profiles`, {
         method: 'GET',
         headers: {
@@ -251,7 +251,7 @@ exports.cadastrarPlataforma = async function (req, res, next) {
     if (!json.token) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
     if (!json.username) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
     if (!json.gender) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
-    if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, err: "Licença expirada", data: [] });
+    //if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, err: "Licença expirada", data: [] });
     let dado = await fetch(`https://cliquedin.app/api/profiles?name=${json.username}&genre=${json.gender}`, {
         method: 'POST',
         headers: {
@@ -271,7 +271,7 @@ exports.acaoPlataforma = async function (req, res, next) {
     if (!json.token2) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
     if (!json.token) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
     if (!json.id) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
-    if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, err: "Licença expirada", data: [] });
+    //if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, err: "Licença expirada", data: [] });
     let dado = await fetch(`https://cliquedin.app/api/postFollowers?profile=${json.id}`, {
         method: 'GET',
         headers: {
@@ -292,7 +292,7 @@ exports.confirmarPlataforma = async function (req, res, next) {
     if (!json.token) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
     if (!json.id) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
     if (!json.idTask) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
-    if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, err: "Licença expirada", data: [] });
+    //if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, err: "Licença expirada", data: [] });
     let dado = await fetch(`https://cliquedin.app/api/postFollowers/accept/${json.idTask}?profile=${json.id}`, {
         method: 'POST',
         headers: {
@@ -313,7 +313,7 @@ exports.pularPlataforma = async function (req, res, next) {
     if (!json.token) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
     if (!json.id) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
     if (!json.idTask) return res.status(200).send({ status: 0, err: 'Requisição invalida', data: [] });
-    if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, err: "Licença expirada", data: [] });
+    //if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, err: "Licença expirada", data: [] });
     let dado = await fetch(`https://cliquedin.app/api/postFollowers/next/${json.idTask}?profile=${json.id}`, {
         method: 'POST',
         headers: {
@@ -336,7 +336,7 @@ exports.loginBot = async function (req, res, next) {
     if (!json.password) return res.status(200).send({ status: 0, erro: "Informe a senha de acesso ao sistema", data: [] });
     let conta = await contaController.loginAccount(json.email, json.password);
     if (!conta) return res.status(200).send({ status: 0, erro: "Email ou senha incorreto", data: [] });
-    if (!await cliquedinController.validateLicenceCliquedin(conta.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    //if (!await cliquedinController.validateLicenceCliquedin(conta.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     dadosController.addAtivo(conta.token);
     return res.status(200).send({ status: 1, erro: "", data: [conta] });
 }
@@ -346,6 +346,6 @@ exports.checkToken = async function (req, res, next) {
     if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] })
     let user = await contaController.findByToken(json.token);
     if (!user) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] })
-    if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    //if (!await cliquedinController.validateLicenceCliquedin(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
     return res.status(200).send({ status: 1, erro: "", data: [] });
 }
