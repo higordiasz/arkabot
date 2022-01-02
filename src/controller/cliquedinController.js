@@ -5,18 +5,6 @@ const cliquedinController = require('../model/Cliquedin/Controller');
 const fetch = require('node-fetch');
 const crypto = require('crypto');
 
-//Controle de usuarios
-
-exports.checkToken = async function (req, res, next) {
-    let json = req.body;
-    if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] })
-    let user = await contaController.findByToken(json.token);
-    if (!user) return res.status(200).send({ statgus: 0, erro: "Informe o token de acesso ao sistema", data: [] })
-    dadosController.addAtivoPlat(json.token, 1);
-    if (!await cliquedinController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
-    return res.status(200).send({ status: 1, erro: "", data: [] });
-}
-
 //Controle das contas do Instagram
 
 exports.createConta = async function (req, res, next) {
@@ -337,4 +325,27 @@ exports.pularPlataforma = async function (req, res, next) {
     console.log(dado);
     if (dado.message != 'success') return res.status(200).send({ status: 0, err: 'Não foi possivel confirmar a tarefa no momento', data: [] });
     return res.status(200).send({ status: 1, err: '', data: [] });
+}
+
+//Controler de Usuario
+
+exports.loginBot = async function (req, res, next) {
+    let json = req.body;
+    if (!json) return res.status(200).send({ status: 0, erro: "Envie os dados para realizar a requisição", data: [] });
+    if (!json.email) return res.status(200).send({ status: 0, erro: "Informe o email de acesso ao sistema", data: [] });
+    if (!json.password) return res.status(200).send({ status: 0, erro: "Informe a senha de acesso ao sistema", data: [] });
+    let conta = await contaController.loginAccount(json.email, json.password);
+    if (!conta) return res.status(200).send({ status: 0, erro: "Email ou senha incorreto", data: [] });
+    if (!await cliquedinController.validateLicenceInstagram(conta.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    dadosController.addAtivo(conta.token);
+    return res.status(200).send({ status: 1, erro: "", data: [conta] });
+}
+
+exports.checkToken = async function (req, res, next) {
+    let json = req.body;
+    if (!json.token) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] })
+    let user = await contaController.findByToken(json.token);
+    if (!user) return res.status(200).send({ status: 0, erro: "Informe o token de acesso ao sistema", data: [] })
+    if (!await cliquedinController.validateLicenceInstagram(json.token)) return res.status(200).send({ status: 2, erro: "Licença expirada", data: [] });
+    return res.status(200).send({ status: 1, erro: "", data: [] });
 }

@@ -117,6 +117,9 @@ app.use((req, res, next) => { //Cria um middleware onde todas as requests passam
 const gniRouter = require('./router/gni-router');
 app.use('/api/gni', gniRouter);
 
+const cliquedinRouter = require('./router/cliquedin-router');
+app.use('/api/cliquedin', cliquedinRouter);
+
 const dizuRouter = require('./router/dizu-router');
 app.use('/api/dizu', dizuRouter);
 

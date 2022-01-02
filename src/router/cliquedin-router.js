@@ -9,6 +9,8 @@ const Controller = require('../controller/cliquedinController');
 
 router.post('/checktoken', Controller.checkToken);
 
+router.post('/login', Controller.loginBot);
+
 //Instagram
 
 router.post('/addinsta', Controller.createConta);
