@@ -32,6 +32,7 @@ const MobileUA = require(`./model/UserAgent/Mobile`);
 const NavegadorUA = require(`./model/UserAgent/Navegador`);
 const Download = require(`./model/Download/Download`);
 const CliquedinLicense = require(`./model/Cliquedin/CliquedinLicense`);
+const CliquedinLogin = require('./model/Cliquedin/CliquedinLogin');
 
 //Carregando Passport
 const passport = require('passport');

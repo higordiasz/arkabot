@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const CliquedinLicense = mongoose.model('CliquedinLicense');
+const CliquedinLogin = mongoose.model('CliquedinLogin');
 const md5 = require('md5');
 const moment = require('moment');
 
@@ -43,7 +44,7 @@ exports.getFinalLicenceCliquedin = async function (token) {
 exports.adicionarLicenceCliquedin = async function (token, dias, origin) {
     if (token.isNullOrEmpty()) return false;
     if (origin.isNullOrEmpty()) return false;
-    let licence = await CliquedinLicense.findOne({token: token});
+    let licence = await CliquedinLicense.findOne({ token: token });
     if (!licence) {
         let json = new CliquedinLicense({
             token: token,
@@ -58,8 +59,8 @@ exports.adicionarLicenceCliquedin = async function (token, dias, origin) {
         let final = moment(licence.final, "DD/MM/YYYY HH:mm:ss");
         if (hoje.isAfter(final, 'hours')) {
             licence.aquisicao = moment(new Date()).format("DD/MM/YYYY HH:mm:ss"),
-            licence.final = moment().add(dias, 'days').format("DD/MM/YYYY HH:mm:ss"),
-            licence.origin = origin
+                licence.final = moment().add(dias, 'days').format("DD/MM/YYYY HH:mm:ss"),
+                licence.origin = origin
             await licence.save();
             return true;
         } else {
@@ -71,4 +72,20 @@ exports.adicionarLicenceCliquedin = async function (token, dias, origin) {
             return true;
         }
     }
+}
+
+exports.saveLogin = async function (token, crypted, auth) {
+    if (token.isNullOrEmpty()) return false;
+    if (crypted.isNullOrEmpty()) return false;
+    if (auth.isNullOrEmpty()) return false;
+    var l = await CliquedinLogin.findOne({ autenticador: auth });
+    if (!l) {
+
+    } else {
+
+    }
+}
+
+exports.loadLogin = async function (token, crypted) {
+
 }

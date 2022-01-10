@@ -20,6 +20,7 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
   <link id="icolor" href="../css/icolor.css" rel="stylesheet" />
+  
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -165,6 +166,28 @@
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
+      <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+        <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title" id="modal-title-notification">Validar compra automáticamente!</h6>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="py-3 text-center">
+                <i class="ni ni-bell-55 ni-3x"></i>
+                <h4 class="text-gradient text-danger mt-4">Ao prosseguir esteja ciente!</h4>
+                <p>Para validar a sua compra de forma automática deve fazer todo o procedimento pelo MercadoPago e não fechar a página de pagamento!, deve retornar para o site para efetivar a compra!.</p>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn bg-gradient-danger btn-block mb-3" data-bs-dismiss="modal">Continuar</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-4">
           <div class="card">
@@ -219,6 +242,25 @@
         </div>
       </div>
     </div>
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <div class="card">
+          <a target="_blank" href="../checkout/comprar-instagram?valor=2.50&dias=7">
+            <div class="card-header mx-4 p-3 text-center">
+              <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
+                <i class="fa fa-instagram opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div class="card-body pt-0 p-3 text-center">
+              <h6 class="text-center mb-0">Instagram 7 dias</h6>
+              <span class="text-xs">Liberado 7 dia de acesso dos bot instagram (Apenas para novos usuários)</span>
+              <hr class="horizontal dark my-3">
+              <h5 class="mb-0"><s>R$25,00</s> R$5,00 <span class="text-success text-sm font-weight-bolder">- 80%</span></h5>
+            </div>
+          </a>
+      </div>
+    </div>
+  </div>
     <footer class="footer pt-3  ">
       <div class="container-fluid">
         <div class="row align-items-center justify-content-lg-between">
@@ -238,6 +280,7 @@
   </main>
 
   <!--   Core JS Files   -->
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
@@ -426,6 +469,10 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+  <script type="text/javascript">
+    $(window).on('load',function(){
+    $('#modal-notification').modal('show'); });
+</script>
 </body>
 
 </html>

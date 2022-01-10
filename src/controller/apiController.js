@@ -589,3 +589,13 @@ exports.masCalculator = async function (req, res, next) {
     let md5ToSend = md5(digest).toString();
     res.status(200).send(md5ToSend);
 }
+
+exports.checkPromotionWeek = async function (token) {
+    try {
+        let vendas = await vendaController.getTokenVendas(token);
+        if (vendas == null) return true;
+        return false;
+    } catch {
+        return false;
+    }
+}
