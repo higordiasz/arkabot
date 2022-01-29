@@ -109,6 +109,8 @@ router.all('/mas', Controller.masCalculator);
 
 router.all('/getallua', Controller.getAllUserAgensts);
 
+router.all('/checkcliquedin', Controller.checkCliquedin);
+
 /*
 router.all('/attinstasold', (req, res, next) => {
     instaController.atualizarOldInstagrans();
