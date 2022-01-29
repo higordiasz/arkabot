@@ -45,3 +45,15 @@ exports.adicionarNavegadorUA = async function (ua) {
     await nav.save();
     return;
 }
+
+exports.getRandomAllUA = async function () {
+    if (getRandomInt(0, 1) == 0) {
+        let uas = await MobileUA.find();
+        let value = getRandomInt(0, uas.length);
+        return uas[value].ua;
+    } else {
+        let uas = await NavegadorUA.find();
+        let value = getRandomInt(0, uas.length);
+        return uas[value].ua;
+    }
+}

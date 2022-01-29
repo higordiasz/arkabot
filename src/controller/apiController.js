@@ -532,6 +532,8 @@ exports.getUserAgentFromSeed = async function (req, res, next) {
         return res.status(200).send({ status: 1, erro: await uaController.getRandomNavegadorUA() });
     if (json.username == "mobile")
         return res.status(200).send({ status: 1, erro: await uaController.getRandomMobileUA() });
+    if (json.username == "all")
+        return res.status(200).send({ status: 1, erro: await uaController.getRandomAllUA() });
     return res.status(200).send({ status: 1, erro: useragentFromSeed(json.username) });
 }
 
