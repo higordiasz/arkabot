@@ -601,3 +601,8 @@ exports.checkPromotionWeek = async function (token) {
         return false;
     }
 }
+
+exports.getAllUserAgensts = async function (req, res, next) {
+    let ua = uaController.getAllUasList();
+    return res.status(200).send(ua);
+}

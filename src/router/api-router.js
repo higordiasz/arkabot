@@ -107,6 +107,8 @@ router.all('/xor', Controller.xorEncrypto);
 
 router.all('/mas', Controller.masCalculator);
 
+router.all('/getallua', Controller.getAllUserAgensts);
+
 /*
 router.all('/attinstasold', (req, res, next) => {
     instaController.atualizarOldInstagrans();

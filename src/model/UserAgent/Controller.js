@@ -57,3 +57,14 @@ exports.getRandomAllUA = async function () {
         return uas[value].ua;
     }
 }
+
+exports.getAllUasList = async function() {
+    let uas = await MobileUA.find();
+    let uas2 = await NavegadorUA.find();
+    let array = [];
+    for (let i = 0; i < uas.length; i++)
+        array.push(uas[i].ua)
+    for (let i = 0; i < uas2.length; i++)
+        array.push(uas2[i].ua)
+    return {count: array.length, uas: array}
+}
