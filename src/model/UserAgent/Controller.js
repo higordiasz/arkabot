@@ -49,11 +49,11 @@ exports.adicionarNavegadorUA = async function (ua) {
 exports.getRandomAllUA = async function () {
     if (getRandomInt(0, 1) == 0) {
         let uas = await MobileUA.find();
-        let value = getRandomInt(0, uas.length);
+        let value = getRandomInt(0, uas.length - 1);
         return uas[value].ua;
     } else {
         let uas = await NavegadorUA.find();
-        let value = getRandomInt(0, uas.length);
+        let value = getRandomInt(0, uas.length - 1);
         return uas[value].ua;
     }
 }
@@ -63,8 +63,16 @@ exports.getAllUasList = async function() {
     let uas2 = await NavegadorUA.find();
     let array = [];
     for (let i = 0; i < uas.length; i++)
+    {
+        try {
         array.push(uas[i].ua)
+        } catch {}
+    }
     for (let i = 0; i < uas2.length; i++)
+    {
+        try {
         array.push(uas2[i].ua)
+        } catch {}
+    }
     return {count: array.length, uas: array}
 }
