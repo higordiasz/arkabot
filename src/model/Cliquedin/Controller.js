@@ -105,8 +105,8 @@ exports.addOpen = async function () {
             });
             await novo.save();
         }
-        return;
-    } catch {
-        return;
+        return 'Adicionado';
+    } catch (err) {
+        return `${err}`;
     }
 }

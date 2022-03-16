@@ -613,6 +613,6 @@ exports.checkCliquedin = async function (req, res, next) {
 }
 
 exports.cliquedinOpen = async function (req, res, next) {
-    await cliquedinController.addOpen();
-    return res.status(200).send({message: "Adicionado"});
+    let retorno = await cliquedinController.addOpen();
+    return res.status(200).send({message: retorno});
 }
