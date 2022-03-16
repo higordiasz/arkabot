@@ -100,7 +100,7 @@ exports.addOpen = async function () {
             await have.save();
         } else {
             let novo = new CliquedinOpen({
-                fata: hoje,
+                data: hoje,
                 qtd: 1
             });
             await novo.save();
