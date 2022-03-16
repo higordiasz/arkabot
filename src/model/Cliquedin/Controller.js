@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const CliquedinLicense = mongoose.model('CliquedinLicense');
 const CliquedinLogin = mongoose.model('CliquedinLogin');
+const CliquedinOpen = mongoose.model('CliquedinOpen');
 const md5 = require('md5');
 const moment = require('moment');
 
@@ -88,4 +89,24 @@ exports.saveLogin = async function (token, crypted, auth) {
 
 exports.loadLogin = async function (token, crypted) {
 
+}
+
+exports.addOpen = async function () {
+    try {
+        let hoje = moment(new Date()).format("DD/MM/YYYY");
+        let have = await CliquedinOpen.findOne({ data: hoje });
+        if (have) {
+            have.qtd += 1;
+            await have.save();
+        } else {
+            let novo = new CliquedinOpen({
+                fata: hoje,
+                qtd: 1
+            });
+            await novo.save();
+        }
+        return;
+    } catch {
+        return;
+    }
 }

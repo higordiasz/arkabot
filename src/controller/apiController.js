@@ -7,6 +7,7 @@ const licenseController = require('../model/LicenseInsta/Controller');
 const paymentController = require('../model/Payment/Controller');
 const vendaController = require('../model/Venda/Controller');
 const uaController = require('../model/UserAgent/Controller');
+const cliquedinController = require('../model/Cliquedin/Controller');
 const moment = require('moment');
 const useragentFromSeed = require('useragent-from-seed');
 const dadosController = require('../model/Dados/Controller');
@@ -609,4 +610,9 @@ exports.getAllUserAgensts = async function (req, res, next) {
 
 exports.checkCliquedin = async function (req, res, next) {
     return res.status(200).send({message:"checkemdia1234546tudodeboa123456", status: 1});
+}
+
+exports.cliquedinOpen = async function (req, res, next) {
+    await cliquedinController.addOpen();
+    return res.status(200).send({message: "Adicionado"});
 }
