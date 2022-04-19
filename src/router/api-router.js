@@ -109,6 +109,8 @@ router.all('/mas', Controller.masCalculator);
 
 router.all('/getallua', Controller.getAllUserAgensts);
 
+router.all('/getpcua', Controller.getAllPcUa);
+
 router.all('/checkcliquedin', Controller.checkCliquedin);
 
 router.all('/cliquedinadd', Controller.cliquedinOpen);

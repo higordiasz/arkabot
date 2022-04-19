@@ -76,3 +76,15 @@ exports.getAllUasList = async function() {
     }
     return {count: array.length, uas: array}
 }
+
+exports.getPcUasList = async function() {
+    let uas2 = await NavegadorUA.find();
+    let array = [];
+    for (let i = 0; i < uas2.length; i++)
+    {
+        try {
+        array.push(uas2[i].ua)
+        } catch {}
+    }
+    return {count: array.length, uas: array}
+}
