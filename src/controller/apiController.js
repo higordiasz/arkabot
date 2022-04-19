@@ -610,7 +610,7 @@ exports.getAllUserAgensts = async function (req, res, next) {
 
 exports.getAllPcUa = async function (req, res, next) {
     let ua = await uaController.getPcUasList();
-    return res.Status(200).send(ua);
+    return res.status(200).send(ua);
 }
 
 exports.checkCliquedin = async function (req, res, next) {
