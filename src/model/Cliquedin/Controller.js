@@ -91,17 +91,18 @@ exports.loadLogin = async function (token, crypted) {
 
 }
 
-exports.addOpen = async function () {
+exports.addOpen = async function (type) {
     try {
         let hoje = moment(new Date()).format("DD/MM/YYYY");
-        let have = await CliquedinOpen.findOne({ data: hoje });
+        let have = await CliquedinOpen.findOne({ data: hoje, type: type });
         if (have) {
             have.qtd += 1;
             await have.save();
         } else {
             let novo = new CliquedinOpen({
                 data: hoje,
-                qtd: 1
+                qtd: 1,
+                type: type
             });
             await novo.save();
         }
@@ -109,4 +110,11 @@ exports.addOpen = async function () {
     } catch (err) {
         return `${err}`;
     }
+}
+
+exports.CheckLicense = async function () {
+    let hoje = moment(new Date(), "DD/MM/YYYY HH:mm:ss");
+    let final = moment("31/05/2022 12:00:00", "DD/MM/YYYY HH:mm:ss");
+    if (hoje.isAfter(final, 'hours')) return {status: 0, check: false, expiration: "31/05/2022"};
+    return {status: 1, check: true, expiration: "31/05/2022"}
 }

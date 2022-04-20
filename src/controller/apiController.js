@@ -614,10 +614,13 @@ exports.getAllPcUa = async function (req, res, next) {
 }
 
 exports.checkCliquedin = async function (req, res, next) {
-    return res.status(200).send({message:"checkemdia1234546tudodeboa123456", status: 1});
+    return res.status(200).send(await cliquedinController.CheckLicense());
 }
 
 exports.cliquedinOpen = async function (req, res, next) {
-    let retorno = await cliquedinController.addOpen();
+    if(!req.query.type) return res.status(400).send();
+    if(req.query.type == "") return res.status(400).send();
+    if(req.query.type != "seguir" && req.query.type != "comentar" && req.query.type != "live") return res.status(400).send();
+    let retorno = await cliquedinController.addOpen(req.query.type);
     return res.status(200).send({message: retorno});
 }

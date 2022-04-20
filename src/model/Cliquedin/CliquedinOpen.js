@@ -10,6 +10,10 @@ const CliquedinOpenSchema = new Schema({
         type: Number,
         required: true
     },
+    type: {
+        type: String,
+        required: true
+    },
 });
 
 module.exports = mongoose.model('CliquedinOpen', CliquedinOpenSchema);
