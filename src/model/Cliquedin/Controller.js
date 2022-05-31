@@ -114,7 +114,7 @@ exports.addOpen = async function (type) {
 
 exports.CheckLicense = async function () {
     let hoje = moment(new Date(), "DD/MM/YYYY HH:mm:ss");
-    let final = moment("31/05/2022 12:00:00", "DD/MM/YYYY HH:mm:ss");
+    let final = moment("30/06/2022 22:00:00", "DD/MM/YYYY HH:mm:ss");
     if (hoje.isAfter(final, 'hours')) return {status: 0, check: false, expiration: "31/05/2022"};
     return {status: 1, check: true, expiration: "31/05/2022"}
 }
